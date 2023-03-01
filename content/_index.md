@@ -7,7 +7,7 @@ type: docs
 
 Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
 
-## Hacking
+## Hacking 2
 
 Create a github [user account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account) or [organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch), and install [git](https://git-scm.com/) and the [gohugo](https://gohugo.io/) [static site generator](https://jamstack.org/generators/) then:
 
