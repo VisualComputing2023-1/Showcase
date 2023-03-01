@@ -3,9 +3,16 @@ title: Introduction
 type: docs
 ---
 
-# Visual Computing - Team 
+# Visual Computing
 
-Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
+## Team
+
+### Alice Tiên Phung-Ngoc
+
+### Brian Chaparro Cetina
+
+### Diego Sebastian Rubiano Ballén
+<!--Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
 
 ## Hacking 2
 
@@ -25,4 +32,4 @@ Deploy with `$git push`. Don't forget to select the `gh-pages` branch as the one
 
 {{< hint info >}}
 The **showcase** template uses the [hugo-book](https://github.com/alex-shpak/hugo-book) theme by default. Check the [hugo themes site](https://themes.gohugo.io/) if you wish to add other ones.
-{{< /hint >}}
+{{< /hint >}}-->
