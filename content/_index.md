@@ -9,9 +9,15 @@ type: docs
 
 ### Alice Tiên Phung-Ngoc
 
+Correo: aphung@unal.edu.co
+
 ### Brian Chaparro Cetina
 
+Correo: bchaparro@unal.edu.co
+
 ### Diego Sebastian Rubiano Ballén
+
+Correo: drubiano@unal.edu.co
 <!--Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
 
 ## Hacking 2
