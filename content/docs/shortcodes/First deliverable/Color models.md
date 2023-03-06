@@ -5,10 +5,22 @@
 Research other color models such as HSL, HSB, XYZ.
 {{< /hint >}}
 
-## HSV model
+Definition of subtractive/additive color models
 
-## HSB model
+## Additive color models
 
-## XYZ model
+### RGB
+
+### XYZ model
+
+## Subtractive color models
 
 ## CMYK
+
+## Combination of subtractive and additive color models
+
+### HSV model
+
+### HSB model
+
+
