@@ -1,4 +1,4 @@
-# Color models exercise
+# Color models
 
 {{< hint info >}}
 **Exercise**  
@@ -9,18 +9,38 @@ Definition of subtractive/additive color models
 
 ## Additive color models
 
-### RGB
+{{< tabs "id1" >}}
+{{< tab "RGB" >}}
+# RGB
+RGB content
+{{< /tab >}}
 
-### XYZ model
+{{< tab "XYZ model" >}} 
+# XYZ model
+XYZ content
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Subtractive color models
 
-## CMYK
+{{< tabs "id2" >}}
+{{< tab "CMYK" >}}
+# CMYK
+CMYK content
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Combination of subtractive and additive color models
 
-### HSV model
+{{< tabs "id3" >}}
+{{< tab "HSL model" >}}
+# HSL model
+HSL content
+{{< /tab >}}
 
-### HSB model
-
+{{< tab "HSB model" >}}
+# HSB model
+HSB content
+{{< /tab >}}
+{{< /tabs >}}
 
