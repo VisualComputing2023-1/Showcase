@@ -18,6 +18,6 @@ Implement a color mapping application that helps people who are color blind see 
 
 ## Conclusion
 
-## Trabajo futuro
+## Future Work
 
 
