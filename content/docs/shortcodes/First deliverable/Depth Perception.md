@@ -94,6 +94,171 @@ function draw() {
 
 ## Code: Results
 
+{{< p5-widget autoplay=true height="400" width="400" ver="1.5.0" >}}
+class Star{
+  constructor(){
+    this.x = random(-width,width);
+    this.y = random(-height, height);
+    this.z = random(width);
+    this.a = random(255);
+    this.b = random(255);
+    this.c = random(255);
+    this.d = random(255);
+  }
+  
+  update(speed_var){
+    this.z = this.z -speed_var;
+    if (this.z<1){
+      this.x = random(-width,width);
+      this.y = random(-height, height);
+      this.z=random(width);  
+    }
+  }
+  
+  show(){
+    fill(255);
+    noStroke();
+    let sx = map(this.x/this.z,0,1,0,width);
+    let sy = map(this.y/this.z,0,1,0,height);
+    //print("x: ",sx,"y: ",  sy);
+    let r = map(this.z,0,width,12,0);
+    
+    ellipse(sx,sy,r,r);
+  }
+}
+
+let stars=[];
+let star_length=1300;
+let speed_var = 10;
+
+function setup() {
+  createCanvas(400,400);
+  for (let i = 0; i < star_length; i++) {
+    stars.push(new Star());
+  }
+}
+
+function draw() {
+  background(0);
+  speed_var = map(mouseY,0,height, 0,30);
+  translate(width/2,height/2);
+  for (let i = 0; i < star_length; i++) {
+    stars[i].update(speed_var);
+    stars[i].show();
+  }
+}
+{{< /p5-widget >}}
+
+{{< p5-global-iframe id="breath" width="625" height="625" >}}
+  // Coded as `global mode` of [this](https://github.com/VisualComputing/Cognitive/blob/gh-pages/sketches/rotateSquare.js)
+class Star{
+  constructor(){
+    this.x = random(-width,width);
+    this.y = random(-height, height);
+    this.z = random(width);
+    this.a = random(255);
+    this.b = random(255);
+    this.c = random(255);
+    this.d = random(255);
+  }
+  
+  update(speed_var){
+    this.z = this.z -speed_var;
+    if (this.z<1){
+      this.x = random(-width,width);
+      this.y = random(-height, height);
+      this.z=random(width);  
+    }
+  }
+  
+  show(){
+    fill(255);
+    noStroke();
+    let sx = map(this.x/this.z,0,1,0,width);
+    let sy = map(this.y/this.z,0,1,0,height);
+    //print("x: ",sx,"y: ",  sy);
+    let r = map(this.z,0,width,12,0);
+    
+    ellipse(sx,sy,r,r);
+  }
+}
+
+let stars=[];
+let star_length=1300;
+let speed_var = 10;
+
+function setup() {
+  createCanvas(600,600);
+  for (let i = 0; i < star_length; i++) {
+    stars.push(new Star());
+  }
+}
+
+function draw() {
+  background(0);
+  speed_var = map(mouseY,0,height, 0,30);
+  translate(width/2,height/2);
+  for (let i = 0; i < star_length; i++) {
+    stars[i].update(speed_var);
+    stars[i].show();
+  }
+}
+{{< /p5-global-iframe >}}
+
+{{< p5-global-iframe id="breath" width="625" height="625" >}}
+  // Coded as `global mode` of [this](https://github.com/VisualComputing/Cognitive/blob/gh-pages/sketches/rotateSquare.js)
+class Star{
+  constructor(){
+    this.x = random(-width,width);
+    this.y = random(-height, height);
+    this.z = random(width);
+    this.a = random(255);
+    this.b = random(255);
+    this.c = random(255);
+  }
+  
+  update(speed_var){
+    this.z = this.z -speed_var;
+    if (this.z<1){
+      this.x = random(-width,width);
+      this.y = random(-height, height);
+      this.z=random(width);  
+    }
+  }
+  
+  show(){
+    fill(this.a,this.b,this.c);
+    stroke(255);
+    let sx = map(this.x/this.z,0,1,0,width);
+    let sy = map(this.y/this.z,0,1,0,height);
+    //print("x: ",sx,"y: ",  sy);
+    let r = map(this.z,0,width,18,0);
+    
+    ellipse(sx,sy,r,r);
+  }
+}
+
+let stars=[];
+let star_length=1300;
+let speed_var = 10;
+
+function setup() {
+  createCanvas(600,600);
+  for (let i = 0; i < star_length; i++) {
+    stars.push(new Star());
+  }
+}
+
+function draw() {
+  background(0);
+  speed_var = map(mouseY,0,height, 0,30);
+  translate(width/2,height/2);
+  for (let i = 0; i < star_length; i++) {
+    stars[i].update(speed_var);
+    stars[i].show();
+  }
+}
+{{< /p5-global-iframe >}}
 
 ## Applications of Monocular Cues
 Monocular cues are important in a variety of contexts, including art and design, computer graphics, and virtual reality. In art and design, monocular cues are often used to create the illusion of depth and space on a flat surface. In computer graphics and virtual reality, monocular cues are used to create more realistic and accurate representations of 3D scenes.
