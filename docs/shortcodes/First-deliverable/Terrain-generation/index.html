@@ -1,16 +1,20 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Terrain generation # Exercise
-Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial. Final result # The complete code is the following one :
-let col, row; // attributes of cols and rows for the grid let scl = 20 ; //to decide how much cols/rows there are let w = 1400; let h = 1000; let heights = []; // to change the model : assets let sliderSpeed; let sliderNoise; let checkStroke; let flying = 0 ; //variable that allows to fly over the terrain let btnUp; let btnDown; let btnLeft; let btnRight; let btnPause; let btnValidate; //attributes varying with the asset values let direction = &#34;up&#34;; let lines = true; let popupon = false; let maxheight = 300; let topcol; let midcol; let botcol; let array_cols = []; function initButtons(){ btnPause = createImg(&#34;."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Terrain generation # Exercise
-Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial. Final result # The complete code is the following one :
-let col, row; // attributes of cols and rows for the grid let scl = 20 ; //to decide how much cols/rows there are let w = 1400; let h = 1000; let heights = []; // to change the model : assets let sliderSpeed; let sliderNoise; let checkStroke; let flying = 0 ; //variable that allows to fly over the terrain let btnUp; let btnDown; let btnLeft; let btnRight; let btnPause; let btnValidate; //attributes varying with the asset values let direction = &#34;up&#34;; let lines = true; let popupon = false; let maxheight = 300; let topcol; let midcol; let botcol; let array_cols = []; function initButtons(){ btnPause = createImg(&#34;."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/shortcodes/First-deliverable/Terrain-generation/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-04-08T02:51:57-05:00"><title>Terrain Generation | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
+Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial. Main objectives # The aim of this exercise is to develop an automatic terrain generator, that would be useable in games or for visual effects in general. In that sense, it is important to develop features that serve that aim, while controlling :
+the &ldquo;relief&rdquo; of the terrain, to be able to develop a large range of terrains the direction of the movement of the camera, in cases where we would want to generate a moving terrain (plane trips, panoramas, view of the landscape, &mldr;) the camera speed, still in an aim to control the cinematics the visualisation or not of the latices, to eventually correct certain parts of the terrain the colors of the terrain, for the user to be able to control therender of the terrain."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Terrain generation # Exercise
+Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial. Main objectives # The aim of this exercise is to develop an automatic terrain generator, that would be useable in games or for visual effects in general. In that sense, it is important to develop features that serve that aim, while controlling :
+the &ldquo;relief&rdquo; of the terrain, to be able to develop a large range of terrains the direction of the movement of the camera, in cases where we would want to generate a moving terrain (plane trips, panoramas, view of the landscape, &mldr;) the camera speed, still in an aim to control the cinematics the visualisation or not of the latices, to eventually correct certain parts of the terrain the colors of the terrain, for the user to be able to control therender of the terrain."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/shortcodes/First-deliverable/Terrain-generation/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-04-08T15:46:01-05:00"><title>Terrain Generation | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
 <script defer src=/Showcase/en.search.min.7cec9b0a1075c58a0c46780d1b5a27630bd03282c9eb859d249bcc11ec8e7b22.js integrity="sha256-fOybChB1xYoMRngNG1onYwvQMoLJ64WdJJvMEeyOeyI=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/Showcase/><span>Visual Computing 2023-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Shortcodes</span><ul><li><a href=/Showcase/docs/shortcodes/buttons/>Buttons</a></li><li><a href=/Showcase/docs/shortcodes/columns/>Columns</a></li><li><a href=/Showcase/docs/shortcodes/details/>Details</a></li><li><input type=checkbox id=section-b351e3749e1c3ce27f89f471b91b74be class=toggle checked>
 <label for=section-b351e3749e1c3ce27f89f471b91b74be class="flex justify-between"><a role=button>First Deliverable</a></label><ul><li><a href=/Showcase/docs/shortcodes/First-deliverable/Color-mapping/>Color Mapping</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Color-models/>Color Models</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Depth-Perception/>Depth Perception</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Terrain-generation/ class=active>Terrain Generation</a></li></ul></li><li><a href=/Showcase/docs/shortcodes/hints/>Hints</a></li><li><a href=/Showcase/docs/shortcodes/katex/>Katex</a></li><li><a href=/Showcase/docs/shortcodes/mermaid/>Mermaid</a></li><li><input type=checkbox id=section-ec67a64aba70b9df3d2a9acd6c92e3bc class=toggle>
 <label for=section-ec67a64aba70b9df3d2a9acd6c92e3bc class="flex justify-between"><a href=/Showcase/docs/shortcodes/p5/>P5</a></label><ul><li><a href=/Showcase/docs/shortcodes/p5/iframe/>Iframe</a></li><li><a href=/Showcase/docs/shortcodes/p5/div/>Div</a></li></ul></li><li><a href=/Showcase/docs/shortcodes/tabs/>Tabs</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/Showcase/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Terrain Generation</strong>
-<label for=toc-control><img src=/Showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#terrain-generation>Terrain generation</a><ul><li><a href=#final-result>Final result</a></li><li><a href=#explications>Explications</a><ul><li><a href=#principle-of-the-terrain-generation>Principle of the terrain generation</a></li><li><a href=#general-attributes>General attributes</a></li><li><a href=#relief-of-the-terrain>Relief of the terrain</a></li><li><a href=#control-of-the-movement>Control of the movement</a></li><li><a href=#visualization-of-the-lattices>Visualization of the lattices</a></li><li><a href=#color-control>Color control</a></li></ul></li></ul></li><li><a href=#resources>Resources</a></li></ul></nav></aside></header><article class=markdown><h1 id=terrain-generation>Terrain generation
-<a class=anchor href=#terrain-generation>#</a></h1><blockquote class="book-hint info"><strong>Exercise</strong><br>Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial.</blockquote><h2 id=final-result>Final result
-<a class=anchor href=#final-result>#</a></h2><iframe id="'terrain_generation'" style=width:750px;height:476px srcdoc='
+<label for=toc-control><img src=/Showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#terrain-generation>Terrain generation</a><ul><li><a href=#main-objectives>Main objectives</a></li><li><a href=#previous-work>Previous work</a></li><li><a href=#result>Result</a></li><li><a href=#explication-of-the-solution>Explication of the solution</a><ul><li><a href=#principle-of-the-terrain-generation>Principle of the terrain generation</a></li><li><a href=#terrain-relief>Terrain relief</a></li><li><a href=#control-of-the-movement>Control of the movement</a></li><li><a href=#visualization-of-the-lattice>Visualization of the lattice</a></li><li><a href=#color-control>Color control</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future work</a></li></ul></li><li><a href=#resources>Resources</a></li></ul></nav></aside></header><article class=markdown><h1 id=terrain-generation>Terrain generation
+<a class=anchor href=#terrain-generation>#</a></h1><blockquote class="book-hint info"><strong>Exercise</strong><br>Develop a terrain visualization application. Check out the 3D terrain generation with Perlin noise coding train tutorial.</blockquote><h2 id=main-objectives>Main objectives
+<a class=anchor href=#main-objectives>#</a></h2><p>The aim of this exercise is to develop an automatic terrain generator, that would be useable in games or for visual effects in general. In that sense, it is important to develop features that serve that aim, while controlling :</p><ul><li>the &ldquo;relief&rdquo; of the terrain, to be able to develop a large range of terrains</li><li>the direction of the movement of the camera, in cases where we would want to generate a moving terrain (plane trips, panoramas, view of the landscape, &mldr;)</li><li>the camera speed, still in an aim to control the cinematics</li><li>the visualisation or not of the latices, to eventually correct certain parts of the terrain</li><li>the colors of the terrain, for the user to be able to control therender of the terrain.</li></ul><h2 id=previous-work>Previous work
+<a class=anchor href=#previous-work>#</a></h2><p>As an introduction to that subject, it is important to watch the following video :
+<a href="https://www.youtube.com/watch?v=IKB1hWWedMk">https://www.youtube.com/watch?v=IKB1hWWedMk</a>
+It lays the basis of terrain generation, and gives the foundations to build an application based on that.</p><h2 id=result>Result
+<a class=anchor href=#result>#</a></h2><iframe id="'terrain_generation'" style=width:630px;height:630px srcdoc='
         <!DOCTYPE html>
         <html>
           <head>
@@ -23,12 +27,12 @@ let col, row; // attributes of cols and rows for the grid let scl = 20 ; //to de
             
             <script>
               
+
 let col, row; // attributes of cols and rows for the grid
 let scl = 20 ; //to decide how much cols/rows there are
 
 let w = 1400;
 let h = 1000;
-
 
 let heights = [];
 
@@ -58,39 +62,39 @@ let botcol;
 let array_cols = [];
 
 function initButtons(){
-  btnPause = createImg("assets/boton-de-pausa-de-video.png");
+  btnPause = createImg("./../boton-de-pausa-de-video.png");
   btnPause.size(30, 30);
   btnPause.position(width - 50, 10);
   btnPause.mousePressed(popup);
   
-  btnValidate = createImg("assets/check_1.png");
+  btnValidate = createImg("./../check_1.png");
   btnValidate.size(30, 30);
   btnValidate.position(80, 530);
   btnValidate.mousePressed(changeColor);
   
-  btnUp = createImg("assets/arrowUp.png");
+  btnUp = createImg("./../arrowUp.png");
   btnUp.size(25, 30);
   btnUp.position(width - 50, 70-20);
   btnUp.mousePressed(directionUp);
   
-  btnDown = createImg("assets/arrowDown.png");
+  btnDown = createImg("./../arrowDown.png");
   btnDown.size(25, 30);
   btnDown.position(width - 50, 70+15);
   btnDown.mousePressed(directionDown);
   
-  btnLeft = createImg("assets/arrowLeft.png");
+  btnLeft = createImg("./../arrowLeft.png");
   btnLeft.size(30, 25);
   btnLeft.position(width - 50 - 20, 70);
   btnLeft.mousePressed(directionLeft);
   
-  btnRight = createImg("assets/arrowRight.png");
+  btnRight = createImg("./../arrowRight.png");
   btnRight.size(30, 25);
   btnRight.position(width - 50 + 15, 70);
   btnRight.mousePressed(directionRight);
 }
 
 function preload() {
-  myFont = loadFont(&#39;assets/ArialTh.ttf&#39;);
+  myFont = loadFont(&#39;./../ArialTh.ttf&#39;);
 }
 
 function setup() {
@@ -152,9 +156,9 @@ function draw() {
   if (popupon == false){
     if(direction == "up" || direction == "down"){  
       if (direction == "up") {
-        flying -= sliderSpeed.value();
-      }else{
         flying += sliderSpeed.value();
+      }else{
+        flying -= sliderSpeed.value();
       }
 
       let yoff = flying;
@@ -187,9 +191,9 @@ function draw() {
 
     background(10); //to not keep the former strokes
     fill(150);
-    text("Speed", -165, -275);
-    text("Noise", -165, -245);
-    text("Stroke", -240, -205);
+    text("Speed", -170, -280);
+    text("Noise", -170, -250);
+    text("Stroke", -240, -210);
     if(lines == true){
         stroke(255);  //white stroke
     }else{
@@ -201,7 +205,7 @@ function draw() {
     rotateX(PI/3);
     translate((-3*w)/4, -h/2);
 
-    frameRate(5);
+    frameRate(15);
 
     //work on the 2D space : generation of a grid of vertices
     for (let y = 0; y < row; y++){
@@ -280,274 +284,302 @@ function changeColor(){
   }
 }
 
-
             </script>
           </head>
           <body>
           </body>
         </html>
-      '></iframe><p>The complete code is the following one :</p><pre tabindex=0><code class=language-p5 data-lang=p5>let col, row; // attributes of cols and rows for the grid
-let scl = 20 ; //to decide how much cols/rows there are
-
-let w = 1400;
-let h = 1000;
-
-
-let heights = [];
-
-// to change the model : assets
-let sliderSpeed;
-let sliderNoise;
-let checkStroke;
-
-let flying = 0 ; //variable that allows to fly over the terrain
-
-let btnUp;
-let btnDown;
-let btnLeft;
-let btnRight;
-
-let btnPause;
-let btnValidate;
-
-//attributes varying with the asset values
-let direction = &#34;up&#34;;
-let lines = true;
-let popupon = false;
-let maxheight = 300;
-let topcol;
-let midcol;
-let botcol;
-let array_cols = [];
-
-function initButtons(){
-  btnPause = createImg(&#34;./../assets/boton-de-pausa-de-video.png&#34;);
-  btnPause.size(30, 30);
-  btnPause.position(width - 50, 10);
-  btnPause.mousePressed(popup);
-  
-  btnValidate = createImg(&#34;./../assets/check_1.png&#34;);
-  btnValidate.size(30, 30);
-  btnValidate.position(80, 530);
-  btnValidate.mousePressed(changeColor);
-  
-  btnUp = createImg(&#34;./../assets/arrowUp.png&#34;);
-  btnUp.size(25, 30);
-  btnUp.position(width - 50, 70-20);
-  btnUp.mousePressed(directionUp);
-  
-  btnDown = createImg(&#34;./../assets/arrowDown.png&#34;);
-  btnDown.size(25, 30);
-  btnDown.position(width - 50, 70+15);
-  btnDown.mousePressed(directionDown);
-  
-  btnLeft = createImg(&#34;./../assets/arrowLeft.png&#34;);
-  btnLeft.size(30, 25);
-  btnLeft.position(width - 50 - 20, 70);
-  btnLeft.mousePressed(directionLeft);
-  
-  btnRight = createImg(&#34;./../assets/arrowRight.png&#34;);
-  btnRight.size(30, 25);
-  btnRight.position(width - 50 + 15, 70);
-  btnRight.mousePressed(directionRight);
-}
-
-function preload() {
-  myFont = loadFont(&#39;./../assets/ArialTh.ttf&#39;);
-}
-
-function setup() {
-  topcol = color(&#34;white&#34;);
-  midcol = color(&#34;grey&#34;);
-  botcol = color(&#34;black&#34;);
-  createCanvas(600, 600, WEBGL);
-  background(10);
-  
-  initButtons();
-  textFont(myFont);
-  rectMode(CENTER);
-  textAlign(CENTER);
-  textSize(15);
-  
-  color_picker_bot = createColorPicker(&#34;blue&#34;);
-  color_picker_mid = createColorPicker(&#34;green&#34;);
-  color_picker_top = createColorPicker(&#34;white&#34;);
-  color_picker_top.position(10, 500);
-  color_picker_mid.position(10, 530);
-  color_picker_bot.position(10, 560);
-  
-  for (let i=0; i&lt;int(maxheight/2); i++){
-    array_cols.push(lerpColor(botcol, midcol, i/(int(maxheight/2))));
-  }
-  for (let j=int(maxheight/2); j&lt;maxheight; j++){
-    array_cols.push(lerpColor(midcol, topcol, j/(int(maxheight/2))));
-  }
-  
-  sliderSpeed = createSlider(0, 1, 0.5, 0.01);
-  sliderSpeed.position(10, 10);
-  sliderSpeed.style(&#39;width&#39;, &#39;80px&#39;);
-  fill(150);
-  text(&#34;Speed&#34;, -170, -275);
-  sliderNoise = createSlider(0, maxheight, 200);
-  sliderNoise.position(10, 40);
-  sliderNoise.style(&#39;width&#39;, &#39;80px&#39;);
-  text(&#34;Noise&#34;, -170, -245);
-  
-  checkStroke = createCheckbox(&#39;Stroke&#39;, true);
-  checkStroke.position(10, 80);
-  checkStroke.changed(checkedStroke);
-  text(&#34;Stroke&#34;, -240, -205);
-  
-  added = sliderSpeed.value();
-  
-  col = w/scl;
-  row = h/scl;
-  
-  for (let x = 0; x &lt; col; x++) {
-    heights[x] = []; // create nested array
-    for (let y = 0; y &lt; row; y++) {
-      heights[x][y] = 0;
-    }
-  }
-}
-
-function draw() {
-  if (popupon == false){
-    if(direction == &#34;up&#34; || direction == &#34;down&#34;){  
-      if (direction == &#34;up&#34;) {
-        flying -= sliderSpeed.value();
-      }else{
-        flying += sliderSpeed.value();
-      }
-
-      let yoff = flying;
-      for (let y = 0; y &lt; row; y++) {
-        let xoff = 0;
-        for (let x = 0; x &lt; col; x++) {
-          heights[x][y] = map(noise(xoff,yoff), 0, 1, 0,     sliderNoise.value());
-          xoff += 0.2;
-        }
-        yoff += 0.2;
-      }
-    } else {
-      if (direction == &#34;right&#34;) {
-        flying -= sliderSpeed.value();
-      }else{
-        flying += sliderSpeed.value();
-      }
-
-      let xoff = flying;
-      for (let x = 0; x &lt; col; x++) {
-        let yoff = 0;
-        for (let y = 0; y &lt; row; y++) {
-          heights[x][y] = map(noise(xoff,yoff), 0, 1, 0, sliderNoise.value());
-          yoff += 0.2;
-        }
-        xoff += 0.2;
-      }
-    }
-
-
-    background(10); //to not keep the former strokes
-    fill(150);
-    text(&#34;Speed&#34;, -165, -275);
-    text(&#34;Noise&#34;, -165, -245);
-    text(&#34;Stroke&#34;, -240, -205);
-    if(lines == true){
-        stroke(255);  //white stroke
-    }else{
-      noStroke();    //no stroke
-    }
-
-    //center the generated grid
-    translate(width/2, height/4);
-    rotateX(PI/3);
-    translate((-3*w)/4, -h/2);
-
-    frameRate(5);
-
-    //work on the 2D space : generation of a grid of vertices
-    for (let y = 0; y &lt; row; y++){
-
-      beginShape(TRIANGLE_STRIP);
-
-      for (let x = 0; x &lt; col; x++){
-        if (heights[x][y+1] != undefined){
-          fill(array_cols[int(heights[x][y])]);
-          vertex(x*scl, y*scl, heights[x][y]); //create horizontal line vertex
-          fill(array_cols[int(heights[x][y+1])]);
-          vertex(x*scl, (y+1)*scl, heights[x][y+1]);
-        }
-        
-      }
-      endShape();
-    }
-
-  }
-}
-
-function checkedStroke(){
-  if (this.checked()) {
-    lines = true;
-    console.log(lines);
-  } else {
-    lines = false;
-    console.log(lines);
-  }
-}
-
-function directionUp(){
-  direction = &#34;up&#34;;
-  console.log(direction);
-}
-
-function directionDown(){
-  direction = &#34;down&#34;;
-  console.log(direction);
-}
-
-function directionLeft(){
-  direction = &#34;left&#34;;
-  console.log(direction);
-}
-
-function directionRight(){
-  direction = &#34;right&#34;;
-  console.log(direction);
-}
-
-function popup(){
-  popupon = !popupon;
-  console.log(popupon);
-}
-
-function interpolate(){
-  for(let x=0; x&lt;col; x++){
-     for(let y=0; y&lt;row; y++){
-       if (heights[x][y]&lt;150){
-          array_cols[int(heights[x][y])] = lerpColor(botcol, midcol, heights[x][y]/150);
-        } else {
-          array_cols[int(heights[x][y])] = lerpColor(midcol, topcol, heights[x][y]/150 - 1);
-        }
-     } 
-  }
-}
-
-function changeColor(){
-  topcol = color_picker_top.color();
-  midcol = color_picker_mid.color();
-  botcol = color_picker_bot.color();
-  interpolate();
-  console.log(topcol, midcol, botcol);
-  for (let i=0; i&lt;array_cols.length; i++){
-    console.log(array_cols[i]);
-  }
-}
-</code></pre><h2 id=explications>Explications
-<a class=anchor href=#explications>#</a></h2><p>The aim of this exercise is to develop an automatic terrain generator, that would be useable in games or for visual effects in general. In that sense, it is important to develop features that serve that aim, while controlling :</p><ul><li>the &ldquo;relief&rdquo; of the terrain, to be able to develop a large range of terrains</li><li>the direction of the movement of the camera, in cases where we would want to generate a moving terrain (plane trips, panoramas, view of the landscape, &mldr;)</li><li>the camera speed, still in an aim to control the cinematics</li><li>the visualisation or not of the latices, to eventually correct certain parts of the terrain</li><li>the colors of the terrain, for the user to be able to control therender of the terrain.</li></ul><h3 id=principle-of-the-terrain-generation>Principle of the terrain generation
-<a class=anchor href=#principle-of-the-terrain-generation>#</a></h3><p>We will modelize the terrain thanks to a two dimensional array (matrix n*m), forming a grid. TEvery cell of this matrix represents a point of the terrain. It has certain coordinates (abscissa, ordinate, height) and a certain color. Changing these parameters allow us to change the appearance of the terrain.</p><p>The surface of the terrain is then made visible thanks to the generation of triangles, whose sommets ? are the different cells of the matrix (respectively one point, and two of its closest points, not being on the same axis).</p><h3 id=general-attributes>General attributes
-<a class=anchor href=#general-attributes>#</a></h3><h3 id=relief-of-the-terrain>Relief of the terrain
-<a class=anchor href=#relief-of-the-terrain>#</a></h3><p>A nice terrain generation has to include a feature controlling the intensity of the mountains. To get an infinite variety of reliefs, we then want to generate it randomly.</p><p>A first idea would be to assign a random height to each of the points forming the terrain. The problem being that two consecutive points would be completely independant, and then we would obtain a terrain way too irregular and unrealistic. This idea is then to be ignored.</p><p>A second idea is to use Perlin noise. This is a type of gradient noise used to increase apparent realism in a generated image. It gives an aleatorious effect to the image, when in reality, the value assigned to each point (the value being a height here) depends on its neighbour&rsquo;s values.</p><h3 id=control-of-the-movement>Control of the movement
+      '></iframe><p>The complete code of this application is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>col</span>, <span style=color:#a6e22e>row</span>; <span style=color:#75715e>// attributes of cols and rows for the grid
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>scl</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span> ; <span style=color:#75715e>//to decide how much cols/rows there are
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>w</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1400</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>h</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1000</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>heights</span> <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// to change the model : assets
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderSpeed</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderNoise</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkStroke</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>flying</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; <span style=color:#75715e>//variable that allows to fly over the terrain
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnUp</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnDown</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnLeft</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnRight</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnPause</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnValidate</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//attributes varying with the asset values
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;up&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>popupon</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>maxheight</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>300</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>topcol</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>midcol</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>botcol</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>array_cols</span> <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>initButtons</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnPause</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../boton-de-pausa-de-video.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnPause</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnPause</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnPause</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>popup</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../check_1.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>80</span>, <span style=color:#ae81ff>530</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>changeColor</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowUp.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>70</span><span style=color:#f92672>-</span><span style=color:#ae81ff>20</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionUp</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowDown.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>70</span><span style=color:#f92672>+</span><span style=color:#ae81ff>15</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionDown</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowLeft.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>25</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>70</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionLeft</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowRight.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>25</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>15</span>, <span style=color:#ae81ff>70</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionRight</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>myFont</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadFont</span>(<span style=color:#e6db74>&#39;./../ArialTh.ttf&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>topcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color</span>(<span style=color:#e6db74>&#34;white&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>midcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color</span>(<span style=color:#e6db74>&#34;grey&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>botcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color</span>(<span style=color:#e6db74>&#34;black&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#ae81ff>600</span>, <span style=color:#ae81ff>600</span>, <span style=color:#a6e22e>WEBGL</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span>(<span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>initButtons</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textFont</span>(<span style=color:#a6e22e>myFont</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rectMode</span>(<span style=color:#a6e22e>CENTER</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textAlign</span>(<span style=color:#a6e22e>CENTER</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textSize</span>(<span style=color:#ae81ff>15</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_bot</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;blue&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_mid</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;green&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_top</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;white&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_top</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>500</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_mid</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>530</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_bot</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>560</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>); <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>array_cols</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>botcol</span>, <span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>i</span><span style=color:#f92672>/</span>(<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>))));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>j</span><span style=color:#f92672>=</span><span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>); <span style=color:#a6e22e>j</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>maxheight</span>; <span style=color:#a6e22e>j</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>array_cols</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>topcol</span>, <span style=color:#a6e22e>j</span><span style=color:#f92672>/</span>(<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>))));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderSpeed</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;80px&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fill</span>(<span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Speed&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>170</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>275</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>maxheight</span>, <span style=color:#ae81ff>200</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>40</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;80px&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Noise&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>170</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>245</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkStroke</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Stroke&#39;</span>, <span style=color:#66d9ef>true</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkStroke</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>80</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkStroke</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedStroke</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Stroke&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>240</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>205</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>added</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>col</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>w</span><span style=color:#f92672>/</span><span style=color:#a6e22e>scl</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>row</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>h</span><span style=color:#f92672>/</span><span style=color:#a6e22e>scl</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>] <span style=color:#f92672>=</span> []; <span style=color:#75715e>// create nested array
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>popupon</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>false</span>){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;up&#34;</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;down&#34;</span>){  
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;up&#34;</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>flying</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>      }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>flying</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>flying</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>noise</span>(<span style=color:#a6e22e>xoff</span>,<span style=color:#a6e22e>yoff</span>), <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;right&#34;</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>flying</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>      }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>flying</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>flying</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>noise</span>(<span style=color:#a6e22e>xoff</span>,<span style=color:#a6e22e>yoff</span>), <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>background</span>(<span style=color:#ae81ff>10</span>); <span style=color:#75715e>//to not keep the former strokes
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>fill</span>(<span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Speed&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>170</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>280</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Noise&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>170</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>250</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Stroke&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>240</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>210</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>lines</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>stroke</span>(<span style=color:#ae81ff>255</span>);  <span style=color:#75715e>//white stroke
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>noStroke</span>();    <span style=color:#75715e>//no stroke
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//center the generated grid
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>translate</span>(<span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>rotateX</span>(<span style=color:#a6e22e>PI</span><span style=color:#f92672>/</span><span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>translate</span>((<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span><span style=color:#f92672>*</span><span style=color:#a6e22e>w</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>, <span style=color:#f92672>-</span><span style=color:#a6e22e>h</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>frameRate</span>(<span style=color:#ae81ff>15</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//work on the 2D space : generation of a grid of vertices
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>beginShape</span>(<span style=color:#a6e22e>TRIANGLE_STRIP</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>!=</span> <span style=color:#66d9ef>undefined</span>){
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])]);
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>y</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]); <span style=color:#75715e>//create horizontal line vertex
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>          <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>])]);
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, (<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)<span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>endShape</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedStroke</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionUp</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;up&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionDown</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;down&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionLeft</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;left&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionRight</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;right&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>popup</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>popupon</span> <span style=color:#f92672>=</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>popupon</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>interpolate</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>     <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>       <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>&lt;</span><span style=color:#ae81ff>150</span>){
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])] <span style=color:#f92672>=</span> <span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>botcol</span>, <span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])] <span style=color:#f92672>=</span> <span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>topcol</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>150</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>     } 
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>changeColor</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>topcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_top</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>midcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_mid</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>botcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_bot</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>interpolate</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=explication-of-the-solution>Explication of the solution
+<a class=anchor href=#explication-of-the-solution>#</a></h2><h3 id=principle-of-the-terrain-generation>Principle of the terrain generation
+<a class=anchor href=#principle-of-the-terrain-generation>#</a></h3><p>We will modelize the terrain thanks to a two dimensional array (matrix n*m), forming a grid. Every cell of this matrix represents a point of the terrain. It has certain coordinates (abscissa, ordinate, height) and a certain color. Changing these parameters allow us to change the appearance of the terrain.</p><p>The surface of the terrain is then made visible thanks to the generation of triangles, whose sommets ? are the different cells of the matrix (respectively one point, and two of its closest points, not being on the same axis).</p><h3 id=terrain-relief>Terrain relief
+<a class=anchor href=#terrain-relief>#</a></h3><p>A nice terrain generation has to include a feature controlling the intensity of the mountains. To get an infinite variety of reliefs, we then want to generate it randomly.</p><p>A first idea would be to assign a random height to each of the points forming the terrain. The problem being that two consecutive points would be completely independant, and then we would obtain a terrain way too irregular and unrealistic. This idea is then to be ignored.</p><p>A second idea is to use Perlin noise. This is a type of gradient noise used to increase apparent realism in a generated image. It gives an aleatorious effect to the image, when in reality, the value assigned to each point (the value being a height here) depends on its neighbour&rsquo;s values.</p><p>To define the relief of the terrain, we store into a two-dimensional array called <em>heights</em> the altitudes of each and every point of the lattice. The attribute is initialized as following :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>heights</span> <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>] <span style=color:#f92672>=</span> []; <span style=color:#75715e>// create nested array
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>To facilitate the user-generator interactions, we also define a slider that will allow to change the value of the noise produced.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderNoise</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>maxheight</span>, <span style=color:#ae81ff>200</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>40</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;80px&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;Noise&#34;</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>170</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>245</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Now the way of calculating random heights at every point, but dependant of its neighbours&rsquo; heights, is to use a prebuilt function, <em>noise(x, y)</em>, that returns the value of the Perlin noise at the coordinates (x,y). We then use <em>map(value, 0, 1, 0, noise(x,y))</em>, to convert the value <em>value</em> from the range [0,1] to the range [0, noise(x,y)].</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>noise</span>(<span style=color:#a6e22e>xoff</span>,<span style=color:#a6e22e>yoff</span>), <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The terrain is then drawn thanks to the heights defined in the <em>heights</em> array.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>//work on the 2D space : generation of a grid of vertices
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>beginShape</span>(<span style=color:#a6e22e>TRIANGLE_STRIP</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>!=</span> <span style=color:#66d9ef>undefined</span>){
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])]);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>y</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]); <span style=color:#75715e>//create horizontal line vertex
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>])]);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, (<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)<span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>endShape</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=control-of-the-movement>Control of the movement
 <a class=anchor href=#control-of-the-movement>#</a></h3><p>To control the movement, we will act on two of its feature : its direction, and its speed.</p><p>The speed is controlled thanks to an attribute called **. When increasing it, we augment the displacement of the grid at each frame, then increasing the speed. A way to make this attribute changeable by the user is to creagte a slider that has an influence on its value. Since the value is used at each frame (every time the function draw is called), the change in the speed will be instantaneous every time the user will use the slider.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderSpeed</span>;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
@@ -565,7 +597,90 @@ function changeColor(){
 </span></span><span style=display:flex><span>  <span style=color:#a6e22e>flying</span> <span style=color:#f92672>+-=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
 </span></span><span style=display:flex><span>  ...
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>The direction of the movement is defined(&mldr;)</p><p>At last, another feature that can be useful is a pause button. It allows the person generating the terrain to, once he detects something that drags its attention, pause the movement without acting on the speed slider. That way, he can start again the movement just as it was before.</p><p>This part is pretty simple to program, because it only requires to act on the speed of movement. We also need to declare a button that, when clicked, launches a method doing the action previously defined.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnPause</span>;
+</span></span></code></pre></div><p>The direction of the movement is defined by the use of the flying attribute, and the order of calculation of the heights by rows or columns. When doing it by rows, we get a frontwards or backwards movement, and when doing it by columns, we get a right or left movement.</p><p>The controlling of the direction is made possible thanks to the use of four buttons (in arrow shapes). When clicked on, they act on a general attribute named direction,which defines the sense of movement thanks to a simple string taking four different values : <em>up, down, left, right</em>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnUp</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnDown</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnLeft</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnRight</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>initButtons</span>(){
+</span></span><span style=display:flex><span>  ...  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowUp.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>70</span><span style=color:#f92672>-</span><span style=color:#ae81ff>20</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnUp</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionUp</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowDown.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>70</span><span style=color:#f92672>+</span><span style=color:#ae81ff>15</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnDown</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionDown</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowLeft.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>25</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>70</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnLeft</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionLeft</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../arrowRight.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>25</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>50</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>15</span>, <span style=color:#ae81ff>70</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnRight</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>directionRight</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>initButtons</span>();
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionUp</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;up&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionDown</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;down&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionLeft</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;left&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>directionRight</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>direction</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;right&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>When calculating the movement, the code checks the value of the attribute <em>direction</em>. If it is equal to &ldquo;up&rdquo; or &ldquo;down&rdquo;, then the movement is calculated as following :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;up&#34;</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;down&#34;</span>){  
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;up&#34;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>flying</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>flying</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>flying</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {   <span style=color:#75715e>// calculate the heights by rows
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>noise</span>(<span style=color:#a6e22e>xoff</span>,<span style=color:#a6e22e>yoff</span>), <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Whereas if the attribute <em>direction</em> is equal to &ldquo;left&rdquo; or &ldquo;right&rdquo;, the heights are calculated as following :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>direction</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;right&#34;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>flying</span> <span style=color:#f92672>-=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>flying</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>sliderSpeed</span>.<span style=color:#a6e22e>value</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>flying</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {   <span style=color:#75715e>// calculate the heights by columns
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;   
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>noise</span>(<span style=color:#a6e22e>xoff</span>,<span style=color:#a6e22e>yoff</span>), <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#a6e22e>sliderNoise</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>yoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>xoff</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.2</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>At last, another feature that can be useful is a pause button. It allows the person generating the terrain to, once he detects something that drags its attention, pause the movement without acting on the speed slider. That way, he can start again the movement just as it was before.</p><p>This part is pretty simple to program, because it only requires to act on the speed of movement. We also need to declare a button that, when clicked, launches a method doing the action previously defined.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnPause</span>;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>popupon</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>initButtons</span>(){
@@ -579,10 +694,90 @@ function changeColor(){
 </span></span><span style=display:flex><span>    <span style=color:#a6e22e>popupon</span> <span style=color:#f92672>=</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>popupon</span>;
 </span></span><span style=display:flex><span>  }
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=visualization-of-the-lattices>Visualization of the lattices
-<a class=anchor href=#visualization-of-the-lattices>#</a></h3><p>In order to be able to see a concrete schematic of the terrain, facilitate the programmers&rsquo; work by lowering the computer&rsquo;s calculation time, and perhaps change some of the points&rsquo; heights in other use cases, an important feature is to control the vizualisation of the grid of points.</p><p>A simple way to do that is by using a checkbox, that calls a method (name) every time that it is clicked on. (name of the functon) changes the value of the attribute (name) to <em>true</em> or <em>false</em> every time we want to see the grid shown or not.</p><p>Then, in the function draw (called at each frame), when drawing the triangles forming the terrain, an if (&ldquo;boucle&rdquo;) controls the presence or not of (les contours) in the drawing.</p><h3 id=color-control>Color control
-<a class=anchor href=#color-control>#</a></h3><h1 id=resources>Resources
-<a class=anchor href=#resources>#</a></h1><p>Video on terrain generation
-Pages p5 of : color picker, button, slider
-Perlin noise definition</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/07fcd23432e677be4c1b7bb403c97ba1d09046ec title='Last modified by Alice Phung | April 8, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
-<span>April 8, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#terrain-generation>Terrain generation</a><ul><li><a href=#final-result>Final result</a></li><li><a href=#explications>Explications</a><ul><li><a href=#principle-of-the-terrain-generation>Principle of the terrain generation</a></li><li><a href=#general-attributes>General attributes</a></li><li><a href=#relief-of-the-terrain>Relief of the terrain</a></li><li><a href=#control-of-the-movement>Control of the movement</a></li><li><a href=#visualization-of-the-lattices>Visualization of the lattices</a></li><li><a href=#color-control>Color control</a></li></ul></li></ul></li><li><a href=#resources>Resources</a></li></ul></nav></div></aside></main></body></html>
+</span></span></code></pre></div><h3 id=visualization-of-the-lattice>Visualization of the lattice
+<a class=anchor href=#visualization-of-the-lattice>#</a></h3><p>In order to be able to see a concrete schematic of the terrain, facilitate the programmers&rsquo; work by lowering the computer&rsquo;s calculation time, and perhaps change some of the points&rsquo; heights in other use cases, an important feature is to control the vizualisation of the grid of points.</p><p>A simple way to do that is by using a checkbox, that calls a method <em>checkedStroke()</em> every time that it is clicked on. <em>checkedStroke</em> changes the value of the general attribute <em>lines</em> to <em>true</em> or <em>false</em> every time we want to see the grid shown or not.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedStroke</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then, in the function draw (called at each frame), when drawing the triangles forming the terrain, an if loop controls the presence or not of contours in the drawing, by checking the value of the general attribute <em>lines</em>.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>lines</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>stroke</span>(<span style=color:#ae81ff>255</span>);  <span style=color:#75715e>//white stroke
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>noStroke</span>();    <span style=color:#75715e>//no stroke
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><h3 id=color-control>Color control
+<a class=anchor href=#color-control>#</a></h3><p>To adapt the terrain to the generators&rsquo; wishes, an interesting feature is the control of the terrains&rsquo; color. To do so, the choice was made to be able to control three colours : the high altitude one, the medium altitude one and the low altitude one.
+These colors are defined thanks to the following general attributes :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>topcol</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>midcol</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>botcol</span>;
+</span></span></code></pre></div><p>They are changed by the user thanks to color pickers. When he clicks on a validating button, the changes are made effective. The color pickers and the button are initialized as following :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnValidate</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>initButtons</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createImg</span>(<span style=color:#e6db74>&#34;./../check_1.png&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>30</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>80</span>, <span style=color:#ae81ff>530</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>btnValidate</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>changeColor</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>initButtons</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_bot</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;blue&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_mid</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;green&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_top</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;white&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_top</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>500</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_mid</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>530</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_bot</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>560</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>With those colors defined, the aim is to generate a range of colors as wide as the height of the mountains. That way, when generating the surface of the terrain, we can assign a color corresponding to the height of the generated point.</p><p>This range of color is saved in an array called <em>array_cols</em>. It has a length equal to the maximum height of the mountains, so that every of its index correspond to an altitude between 0 and maxheight. A cell of the array contains a color object.</p><p>To make the model more realistic, we want to have a fade between the defined colors. It can be done easily with the p5 mathod <em>lerpColor(firstColor, secondColor, fraction)</em> in which the fraction corresponds to the closeness to the second color (0 being the first color, 1 being the second color). The choice was made to start the model with a scale of black and white to easy the reading of the canvas.</p><p>It is then initalized as following :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>); <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>array_cols</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>botcol</span>, <span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>i</span><span style=color:#f92672>/</span>(<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>))));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>j</span><span style=color:#f92672>=</span><span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>); <span style=color:#a6e22e>j</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>maxheight</span>; <span style=color:#a6e22e>j</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>array_cols</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>topcol</span>, <span style=color:#a6e22e>j</span><span style=color:#f92672>/</span>(<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>maxheight</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>))));
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>} 
+</span></span></code></pre></div><p>When the user clicks on the validate button, he launches the function <em>changeColor()</em>, that retrieves the colors defined in the color pickers, assign them to the general color attributes, and then calculates the interpolation between those colors thanks to the <em>interpolate()</em> function.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>changeColor</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>topcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_top</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>midcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_mid</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>botcol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>color_picker_bot</span>.<span style=color:#a6e22e>color</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>interpolate</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>interpolate</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>     <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>       <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>&lt;</span><span style=color:#ae81ff>150</span>){
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])] <span style=color:#f92672>=</span> <span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>botcol</span>, <span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])] <span style=color:#f92672>=</span> <span style=color:#a6e22e>lerpColor</span>(<span style=color:#a6e22e>midcol</span>, <span style=color:#a6e22e>topcol</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>150</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>     } 
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Finally, the colors are attributed to the model in the draw function, when drawing the triangle shapes. By recovering the height of a point, casting it to an int and searching for the color corresponding to that height in <em>array_cols</em>, a fade of colors is progressively drawn.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>row</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>beginShape</span>(<span style=color:#a6e22e>TRIANGLE_STRIP</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>col</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>!=</span> <span style=color:#66d9ef>undefined</span>){
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>])]);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>y</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span>]); <span style=color:#75715e>//create horizontal line vertex
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>array_cols</span>[<span style=color:#66d9ef>int</span>(<span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>])]);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vertex</span>(<span style=color:#a6e22e>x</span><span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, (<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)<span style=color:#f92672>*</span><span style=color:#a6e22e>scl</span>, <span style=color:#a6e22e>heights</span>[<span style=color:#a6e22e>x</span>][<span style=color:#a6e22e>y</span><span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>endShape</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a></h2><p>This work lays the foundations of an application that could be used in the realization of a video game, an anime, or visual effects of a movie. However, it still contains some problems, and could be improved. For example, it sometimes lags, due to the large quantity of calculations done. It also has a problem regarding the constance of the top color, which is not perfect.</p><h2 id=future-work>Future work
+<a class=anchor href=#future-work>#</a></h2><p>A necessary work is to correct the little bugs present in the code : moving colors depending on the speed and lagging issues.
+Another interesting feature would be to control the number of altitude ranges corresponding to colors, and their expanse. By doing that, the user would have a much wider range of possibilites to generate different terrains.
+The last important thing to work on is the optimization of the code. Right now, many calculations could be optimized so that the terrain generation wouldn&rsquo;t use too many resources.</p><h1 id=resources>Resources
+<a class=anchor href=#resources>#</a></h1><p><strong>Coding Challenge 11: 3D Terrain Generation with Perlin Noise in Processing</strong>, The Coding Train, <a href="https://www.youtube.com/watch?v=IKB1hWWedMk">https://www.youtube.com/watch?v=IKB1hWWedMk</a></p><p><strong>createColorPicker()</strong>, p5 Documentation, <a href=https://p5js.org/es/reference/#/p5/createColorPicker>https://p5js.org/es/reference/#/p5/createColorPicker</a></p><p><strong>createButton()</strong>, p5 Documentation, <a href=https://p5js.org/es/reference/#/p5/createButton>https://p5js.org/es/reference/#/p5/createButton</a></p><p><strong>createSlider()</strong>, p5 Documentation, <a href=https://p5js.org/es/reference/#/p5/createSlider>https://p5js.org/es/reference/#/p5/createSlider</a></p><p><strong>Perlin noise</strong>, Wikipedia, <a href=https://en.wikipedia.org/wiki/Perlin_noise>https://en.wikipedia.org/wiki/Perlin_noise</a></p><p><strong>Perlin noise</strong>, Khan Academy, <a href=https://www.khanacademy.org/computing/computer-programming/programming-natural-simulations/programming-noise/a/perlin-noise>https://www.khanacademy.org/computing/computer-programming/programming-natural-simulations/programming-noise/a/perlin-noise</a></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/fe45bd22c795554d64f8ff28ce4101b0efb3fc53 title='Last modified by Alice Phung | April 8, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<span>April 8, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#terrain-generation>Terrain generation</a><ul><li><a href=#main-objectives>Main objectives</a></li><li><a href=#previous-work>Previous work</a></li><li><a href=#result>Result</a></li><li><a href=#explication-of-the-solution>Explication of the solution</a><ul><li><a href=#principle-of-the-terrain-generation>Principle of the terrain generation</a></li><li><a href=#terrain-relief>Terrain relief</a></li><li><a href=#control-of-the-movement>Control of the movement</a></li><li><a href=#visualization-of-the-lattice>Visualization of the lattice</a></li><li><a href=#color-control>Color control</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future work</a></li></ul></li><li><a href=#resources>Resources</a></li></ul></nav></div></aside></main></body></html>
