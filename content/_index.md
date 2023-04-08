@@ -17,7 +17,7 @@ Correo: bchaparro@unal.edu.co
 ### Diego Sebastian Rubiano Ballén
 Correo: drubiano@unal.edu.co
 {{< hint info >}}
-I'm a very outgoing person, who loves sing, dance and programming. I'm a 10th semester student of the National University of Colombia.
+I'm a very outgoing person, who loves singing, dancing and programming. I'm a 10th semester student of the National University of Colombia.
 {{< /hint >}}
 
 <!--Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
