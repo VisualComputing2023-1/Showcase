@@ -56,7 +56,7 @@ Relative Size Monocular Cue was applied by showing distant stars with a small si
 
 Monocular Movement Parallax was completed by assigning different travel speeds to the stars, in this way it can be illustrated that farther objects move more slowly than closer ones. It should be noted that this Monocular Cue is not necessarily related to size.
 
-Finally, Monocular Cue Interposition is implemented in the spacial color journey sketch. This means that when one star overlaps another, it is because it is closer.
+Finally, Interposition Monocular Cue is implemented in the spacial color journey sketch. This means that when one star overlaps another, it is because it is closer.
 
 ### Solution: Code
 
@@ -85,7 +85,6 @@ class Star{
     noStroke();
     let sx = map(this.x/this.z,0,1,0,width);
     let sy = map(this.y/this.z,0,1,0,height);
-    //print("x: ",sx,"y: ",  sy);
     let r = map(this.z,0,width,12,0);
     
     ellipse(sx,sy,r,r);
@@ -243,3 +242,6 @@ Monocular cues are important in a variety of contexts, including art and design,
 
 ## Conclusion
 In conclusion, while binocular vision is an important factor in depth perception, monocular cues can also provide valuable information about the spatial relationships between objects in a scene. Relative size, linear perspective, monocular movement parallax, interposition, shading and lighting, and aerial perspective are all important types of monocular cues that contribute to our ability to perceive the 3D world around us. By understanding how these cues work, we can better appreciate the complexity of our visual perception and the mechanisms that allow us to interact with the world in three dimensions.
+
+## Future Work
+By implementating this Monocular Cue Sketch, we now have the opportunity to spin Binocular Cues up. In this way, we will be able to experience 3D vision without tricking the human eye.
