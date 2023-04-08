@@ -245,3 +245,8 @@ In conclusion, while binocular vision is an important factor in depth perception
 
 ## Future Work
 By implementating this monocular cue sketch, we now have the opportunity to spin binocular cues up. In this way, we will be able to experience a real 3D vision without tricking the human eye with monocular cues. Additionally, the report and the implemented code work as study material to the National University of Colombia Comunnity or any person who finds interesting to dive in depth perception understanding.
+
+## Resources:
+
+1. Purves, D., Augustine, G. J., Fitzpatrick, D., Hall, W. C., LaMantia, A. S., McNamara, J. O., & Williams, S. M. (2001). Neuroscience (2nd ed.). Sunderland, MA: Sinauer Associates.
+2. Processing Foundation. (n.d.). p5.js reference. Retrieved April 7, 2023, from https://p5js.org/reference/
