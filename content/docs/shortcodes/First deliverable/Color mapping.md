@@ -1,4 +1,5 @@
 # Color mapping applications
+
 {{< hint info >}}
 **Exercise**  
 Implement a color mapping application that helps people who are color blind see the colors around them.
@@ -63,13 +64,286 @@ The next link will send you to a page where are a lot of different tests for the
 
 ## Solution
 
-{{< p5-iframe sketch="/showcase/sketches/color_mapping.js" width="725" height="425" >}}
+{{< p5-global-iframe id='color_mapping' width="750" height="476" >}}
+
+let r, g, b;
+let cr, cg, cb, cm = false;
+let lintern = 0;
+let img;
+let checkL;
+let checkR;
+let checkG;
+let checkB;
+let checkM;
+
+function preload() {
+  img = loadImage('./../arcoiris.png');
+}
+
+function setup() {
+  createCanvas(img.width, img.height);
+  img.loadPixels();
+  loadPixels();
+  
+  checkL = createCheckbox('Flashlight', false);
+  checkL.position(10, 10);
+  checkL.changed(checkedL);
+  
+  checkR = createCheckbox('Protanopia', false);
+  checkR.position(10, 30);
+  checkR.changed(checkedR);
+  
+  checkG = createCheckbox('Deuteronopia', false);
+  checkG.position(10, 50);
+  checkG.changed(checkedG);
+  
+  checkB = createCheckbox('Tritanopia', false);
+  checkB.position(10, 70);
+  checkB.changed(checkedB);
+  
+  checkM = createCheckbox('Monochromancy', false);
+  checkM.position(10, 90);
+  checkM.changed(checkedM);
+}
+
+function draw() {
+  for (let x = 0; x < img.width; x++) {
+    for (let y = 0; y < img.height; y++) {
+      // Calcular la posición 1D de una matriz 2D
+      let loc = (x + y * img.width) * 4;
+      // Obtener los valores R,G,B de una imagen
+      r = img.pixels[loc];
+      g = img.pixels[loc + 1];
+      b = img.pixels[loc + 2];
+      // Calcular una cantidad a cambiar de brillo basado en la proximidad al ratón
+      let maxdist = 70;
+      let d = dist(x, y, mouseX, mouseY);
+      let adjustbrightness = (lintern * (maxdist - d)) / maxdist;
+      r += adjustbrightness;
+      g += adjustbrightness;
+      b += adjustbrightness;
+      // Limitar RGB para asegurarse de estar dentro del rango 0-255 de color
+      r = constrain(r, 0, 255);
+      g = constrain(g, 0, 255);
+      b = constrain(b, 0, 255);
+      
+      if(cr == true){
+        r = 0;
+      }
+      
+      if(cg == true){
+        g = 0;
+      }
+      
+      
+      if(cb == true){
+        b = 0;
+      }
+      
+      
+      if(cm == true){
+        g = r;
+        b = r;
+      }
+      // Hacer un nuevo color y definir el pixel en la ventana
+      //color c = color(r, g, b);
+      let pixloc = (y * width + x) * 4;
+      pixels[pixloc] = r;
+      pixels[pixloc + 1] = g;
+      pixels[pixloc + 2] = b;
+      pixels[pixloc + 3] = 255;
+    }
+  }
+  updatePixels();
+}
+
+function checkedL(){
+  if (checkL.checked()) {
+    lintern = 255;
+    console.log("checked")
+  } else {
+    lintern = 0;
+  }
+}
+
+function checkedR(){
+  if (checkR.checked()) {
+    cr = true;
+    } else {
+    cr = false;
+  }
+}
+
+function checkedG(){
+  if (checkG.checked()) {
+    cg = true;
+    } else {
+    cg = false;
+  }
+}
+
+function checkedB(){
+  if (checkB.checked()) {
+    cb = true;
+    } else {
+    cb = false;
+  }
+}
+
+function checkedM(){
+  if (checkM.checked()) {
+    cm = true;
+    } else {
+    cm = false;
+  }
+}
+
+{{< /p5-global-iframe >}}
 
 ## Code
 
+```javascript
+let r, g, b;
+let cr, cg, cb, cm = false;
+let lintern = 0;
+let img;
+let checkL;
+let checkR;
+let checkG;
+let checkB;
+let checkM;
+
+function preload() {
+  img = loadImage('./../arcoiris.png');
+}
+
+function setup() {
+  createCanvas(img.width, img.height);
+  img.loadPixels();
+  loadPixels();
+  
+  checkL = createCheckbox('Flashlight', false);
+  checkL.position(10, 10);
+  checkL.changed(checkedL);
+  
+  checkR = createCheckbox('Protanopia', false);
+  checkR.position(10, 30);
+  checkR.changed(checkedR);
+  
+  checkG = createCheckbox('Deuteronopia', false);
+  checkG.position(10, 50);
+  checkG.changed(checkedG);
+  
+  checkB = createCheckbox('Tritanopia', false);
+  checkB.position(10, 70);
+  checkB.changed(checkedB);
+  
+  checkM = createCheckbox('Monochromancy', false);
+  checkM.position(10, 90);
+  checkM.changed(checkedM);
+}
+
+function draw() {
+  for (let x = 0; x < img.width; x++) {
+    for (let y = 0; y < img.height; y++) {
+      // Calcular la posición 1D de una matriz 2D
+      let loc = (x + y * img.width) * 4;
+      // Obtener los valores R,G,B de una imagen
+      r = img.pixels[loc];
+      g = img.pixels[loc + 1];
+      b = img.pixels[loc + 2];
+      // Calcular una cantidad a cambiar de brillo basado en la proximidad al ratón
+      let maxdist = 70;
+      let d = dist(x, y, mouseX, mouseY);
+      let adjustbrightness = (lintern * (maxdist - d)) / maxdist;
+      r += adjustbrightness;
+      g += adjustbrightness;
+      b += adjustbrightness;
+      // Limitar RGB para asegurarse de estar dentro del rango 0-255 de color
+      r = constrain(r, 0, 255);
+      g = constrain(g, 0, 255);
+      b = constrain(b, 0, 255);
+      
+      if(cr == true){
+        r = 0;
+      }
+      
+      if(cg == true){
+        g = 0;
+      }
+      
+      
+      if(cb == true){
+        b = 0;
+      }
+      
+      
+      if(cm == true){
+        g = r;
+        b = r;
+      }
+      // Hacer un nuevo color y definir el pixel en la ventana
+      //color c = color(r, g, b);
+      let pixloc = (y * width + x) * 4;
+      pixels[pixloc] = r;
+      pixels[pixloc + 1] = g;
+      pixels[pixloc + 2] = b;
+      pixels[pixloc + 3] = 255;
+    }
+  }
+  updatePixels();
+}
+
+function checkedL(){
+  if (checkL.checked()) {
+    lintern = 255;
+    console.log("checked")
+  } else {
+    lintern = 0;
+  }
+}
+
+function checkedR(){
+  if (checkR.checked()) {
+    cr = true;
+    } else {
+    cr = false;
+  }
+}
+
+function checkedG(){
+  if (checkG.checked()) {
+    cg = true;
+    } else {
+    cg = false;
+  }
+}
+
+function checkedB(){
+  if (checkB.checked()) {
+    cb = true;
+    } else {
+    cb = false;
+  }
+}
+
+function checkedM(){
+  if (checkM.checked()) {
+    cm = true;
+    } else {
+    cm = false;
+  }
+}
+```
+
+
 ## Conclusion
 
+The way we see the color blindness have to changed because is a very common illness, and we must be more careful with the applications we make, overall the colors we used in that apps.
+
 ## Future Work
+
+In the future this work can be sa solid base to make an application that can fix the image showed in the screen for the people who have a color blindness type, using the same mecanism implemented today in the color blind glasses.
 
 ## Resource
 
