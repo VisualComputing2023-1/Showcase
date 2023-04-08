@@ -2,23 +2,22 @@
 title: Introduction
 type: docs
 ---
+# About us
 
-# Visual Computing
-
-## Team
-
-### Alice Tiên Phung-Ngoc
+## Alice Tiên Phung-Ngoc
 
 Correo: aphung@unal.edu.co
 
-### Brian Chaparro Cetina
+## Brian Chaparro Cetina
 Email: bchaparro@unal.edu.co
+[GitHub](https://github.com/bchaparro11)
+[LinkedIn](https://www.linkedin.com/in/brian-chaparro-cetina-1530b71ba/)
 
 {{< hint info >}}
 I am a Software and Computer Engineering Student of the National University of Colombia, taking 9th semester. Passionate about exercising and learning. As a job role I enjoy to solve Software Architecture issues. From this course I hope boost my knowledge with regard to design, it will help me develop better front-end interfaces to projects.
 {{< /hint >}}
 
-### Diego Sebastian Rubiano Ballén
+## Diego Sebastian Rubiano Ballén
 Email: drubiano@unal.edu.co
 {{< hint info >}}
 I'm a very outgoing person, who loves singing, dancing and programming. I'm a 10th semester student of the National University of Colombia.
