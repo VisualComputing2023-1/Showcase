@@ -12,7 +12,7 @@ type: docs
 Correo: aphung@unal.edu.co
 
 ### Brian Chaparro Cetina
-
+Parallex
 Correo: bchaparro@unal.edu.co
 
 ### Diego Sebastian Rubiano Ballén
