@@ -2,7 +2,7 @@
 Implement a color mapping application that helps people who are color blind see the colors around them. Introduction # In this exercise we are going to show how a colorblind person can perceive the colors in the real world.
 Color Mapping # A color map is a set of values that are associated with colors. Generally is used to display a single brand raster consistenly with the same colors."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Color mapping applications # Exercise
 Implement a color mapping application that helps people who are color blind see the colors around them. Introduction # In this exercise we are going to show how a colorblind person can perceive the colors in the real world.
-Color Mapping # A color map is a set of values that are associated with colors. Generally is used to display a single brand raster consistenly with the same colors."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/shortcodes/First-deliverable/Color-mapping/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-04-07T22:15:56-05:00"><title>Color Mapping | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
+Color Mapping # A color map is a set of values that are associated with colors. Generally is used to display a single brand raster consistenly with the same colors."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/shortcodes/First-deliverable/Color-mapping/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-04-07T23:45:16-05:00"><title>Color Mapping | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
 <script defer src=/Showcase/en.search.min.7cec9b0a1075c58a0c46780d1b5a27630bd03282c9eb859d249bcc11ec8e7b22.js integrity="sha256-fOybChB1xYoMRngNG1onYwvQMoLJ64WdJJvMEeyOeyI=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/Showcase/><span>Visual Computing 2023-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li class=book-section-flat><span>Shortcodes</span><ul><li><a href=/Showcase/docs/shortcodes/buttons/>Buttons</a></li><li><a href=/Showcase/docs/shortcodes/columns/>Columns</a></li><li><a href=/Showcase/docs/shortcodes/details/>Details</a></li><li><input type=checkbox id=section-b351e3749e1c3ce27f89f471b91b74be class=toggle checked>
 <label for=section-b351e3749e1c3ce27f89f471b91b74be class="flex justify-between"><a role=button>First Deliverable</a></label><ul><li><a href=/Showcase/docs/shortcodes/First-deliverable/Color-mapping/ class=active>Color Mapping</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Color-models/>Color Models</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Depth-Perception/>Depth Perception</a></li><li><a href=/Showcase/docs/shortcodes/First-deliverable/Terrain-generation/>Terrain Generation</a></li></ul></li><li><a href=/Showcase/docs/shortcodes/hints/>Hints</a></li><li><a href=/Showcase/docs/shortcodes/katex/>Katex</a></li><li><a href=/Showcase/docs/shortcodes/mermaid/>Mermaid</a></li><li><input type=checkbox id=section-ec67a64aba70b9df3d2a9acd6c92e3bc class=toggle>
@@ -23,7 +23,7 @@ Color Mapping # A color map is a set of values that are associated with colors. 
 <label for=tabs-Tab1-2>Complete color blindness</label><div class="book-tabs-content markdown-inner"><h3 id=monochromancy>Monochromancy
 <a class=anchor href=#monochromancy>#</a></h3><p>When you are completely color blind, you cannot see color at all. It&rsquo;s pretty weird. This can make you have trouble seeing clearly and be more sensitive to light.</div></div><h2 id=background-and-previous-work>Background and previous work
 <a class=anchor href=#background-and-previous-work>#</a></h2><p>There are a lot of previous work, but if we talk about color blindness we have to talk about the Ishihara color test too.</p><p>The next video explain how to do the Ishihara color test:</p><iframe width=560 height=315 src=https://www.youtube.com/embed/W_tXS1dG_9Q title="YouTube video player" frameborder=0 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><p>The Ishihara color test is a color vision test for detection of red-green color deficiencies. The test consist of a number of Ishihara plates. Each plate depicts a solid circle of colored dots appearing randomized in color and size. Within the pattern are dots which form a number clearly visible to those with normal color vision but difficult to see or invisible to those with a red-green color vision defect.</p><p>The next link will send you to a page where are a lot of different tests for the detection of color blindness. Just click <a href=https://www.es.colorlitelens.com/test-de-daltonismo.html#TEST>here</a>.</p><h2 id=solution>Solution
-<a class=anchor href=#solution>#</a></h2><iframe id=color_mapping style=width:725px;height:425px srcdoc="
+<a class=anchor href=#solution>#</a></h2><iframe id="'color_mapping'" style=width:750px;height:476px srcdoc="
         <!DOCTYPE html>
         <html>
           <head>
@@ -34,14 +34,281 @@ Color Mapping # A color map is a set of values that are associated with colors. 
             
             
             
-            <script src=/showcase/sketches/color_mapping.js></script>
+            <script>
+              
+
+let r, g, b;
+let cr, cg, cb, cm = false;
+let lintern = 0;
+let img;
+let checkL;
+let checkR;
+let checkG;
+let checkB;
+let checkM;
+
+function preload() {
+  img = loadImage('./../arcoiris.png');
+}
+
+function setup() {
+  createCanvas(img.width, img.height);
+  img.loadPixels();
+  loadPixels();
+  
+  checkL = createCheckbox('Flashlight', false);
+  checkL.position(10, 10);
+  checkL.changed(checkedL);
+  
+  checkR = createCheckbox('Protanopia', false);
+  checkR.position(10, 30);
+  checkR.changed(checkedR);
+  
+  checkG = createCheckbox('Deuteronopia', false);
+  checkG.position(10, 50);
+  checkG.changed(checkedG);
+  
+  checkB = createCheckbox('Tritanopia', false);
+  checkB.position(10, 70);
+  checkB.changed(checkedB);
+  
+  checkM = createCheckbox('Monochromancy', false);
+  checkM.position(10, 90);
+  checkM.changed(checkedM);
+}
+
+function draw() {
+  for (let x = 0; x < img.width; x++) {
+    for (let y = 0; y < img.height; y++) {
+      // Calcular la posición 1D de una matriz 2D
+      let loc = (x + y * img.width) * 4;
+      // Obtener los valores R,G,B de una imagen
+      r = img.pixels[loc];
+      g = img.pixels[loc + 1];
+      b = img.pixels[loc + 2];
+      // Calcular una cantidad a cambiar de brillo basado en la proximidad al ratón
+      let maxdist = 70;
+      let d = dist(x, y, mouseX, mouseY);
+      let adjustbrightness = (lintern * (maxdist - d)) / maxdist;
+      r += adjustbrightness;
+      g += adjustbrightness;
+      b += adjustbrightness;
+      // Limitar RGB para asegurarse de estar dentro del rango 0-255 de color
+      r = constrain(r, 0, 255);
+      g = constrain(g, 0, 255);
+      b = constrain(b, 0, 255);
+      
+      if(cr == true){
+        r = 0;
+      }
+      
+      if(cg == true){
+        g = 0;
+      }
+      
+      
+      if(cb == true){
+        b = 0;
+      }
+      
+      
+      if(cm == true){
+        g = r;
+        b = r;
+      }
+      // Hacer un nuevo color y definir el pixel en la ventana
+      //color c = color(r, g, b);
+      let pixloc = (y * width + x) * 4;
+      pixels[pixloc] = r;
+      pixels[pixloc + 1] = g;
+      pixels[pixloc + 2] = b;
+      pixels[pixloc + 3] = 255;
+    }
+  }
+  updatePixels();
+}
+
+function checkedL(){
+  if (checkL.checked()) {
+    lintern = 255;
+    console.log(&#34;checked&#34;)
+  } else {
+    lintern = 0;
+  }
+}
+
+function checkedR(){
+  if (checkR.checked()) {
+    cr = true;
+    } else {
+    cr = false;
+  }
+}
+
+function checkedG(){
+  if (checkG.checked()) {
+    cg = true;
+    } else {
+    cg = false;
+  }
+}
+
+function checkedB(){
+  if (checkB.checked()) {
+    cb = true;
+    } else {
+    cb = false;
+  }
+}
+
+function checkedM(){
+  if (checkM.checked()) {
+    cm = true;
+    } else {
+    cm = false;
+  }
+}
+
+
+            </script>
           </head>
           <body>
           </body>
         </html>
       "></iframe><h2 id=code>Code
-<a class=anchor href=#code>#</a></h2><h2 id=conclusion>Conclusion
-<a class=anchor href=#conclusion>#</a></h2><h2 id=future-work>Future Work
-<a class=anchor href=#future-work>#</a></h2><h2 id=resource>Resource
-<a class=anchor href=#resource>#</a></h2><ol><li><p><a href="https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/color-map-concepts.htm#:~:text=A%20color%20map%20is%20a,and%20blue%20%28RGB%29%20values">https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/color-map-concepts.htm#:~:text=A%20color%20map%20is%20a,and%20blue%20(RGB)%20values</a>.</p></li><li><p><a href=https://en.wikipedia.org/wiki/Color_blindness>https://en.wikipedia.org/wiki/Color_blindness</a></p></li><li><p><a href=https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness/types-color-blindness>https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness/types-color-blindness</a></p></li><li><p><a href=https://en.wikipedia.org/wiki/Ishihara_test>https://en.wikipedia.org/wiki/Ishihara_test</a></p></li><li><p><a href=https://www.es.colorlitelens.com/test-de-daltonismo.html#TEST>https://www.es.colorlitelens.com/test-de-daltonismo.html#TEST</a></p></li></ol></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/f7bcad3be394f7bf7c15590658160555c9e1e3eb title='Last modified by DR200131 | April 8, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<a class=anchor href=#code>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>r</span>, <span style=color:#a6e22e>g</span>, <span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>cr</span>, <span style=color:#a6e22e>cg</span>, <span style=color:#a6e22e>cb</span>, <span style=color:#a6e22e>cm</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>lintern</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>img</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkL</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkR</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkG</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkB</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>checkM</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>img</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadImage</span>(<span style=color:#e6db74>&#39;./../arcoiris.png&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>width</span>, <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>height</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>loadPixels</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>loadPixels</span>();
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkL</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Flashlight&#39;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkL</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkL</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedL</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkR</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Protanopia&#39;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkR</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkR</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedR</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkG</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Deuteronopia&#39;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkG</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>50</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkG</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedG</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkB</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Tritanopia&#39;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkB</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>70</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkB</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedB</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkM</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCheckbox</span>(<span style=color:#e6db74>&#39;Monochromancy&#39;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkM</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>90</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>checkM</span>.<span style=color:#a6e22e>changed</span>(<span style=color:#a6e22e>checkedM</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>x</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>width</span>; <span style=color:#a6e22e>x</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>y</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>height</span>; <span style=color:#a6e22e>y</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Calcular la posición 1D de una matriz 2D
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>loc</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>width</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>4</span>;
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Obtener los valores R,G,B de una imagen
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#a6e22e>r</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>loc</span>];
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>g</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>loc</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>img</span>.<span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>loc</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span>];
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Calcular una cantidad a cambiar de brillo basado en la proximidad al ratón
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>maxdist</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>70</span>;
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>d</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>dist</span>(<span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>, <span style=color:#a6e22e>mouseX</span>, <span style=color:#a6e22e>mouseY</span>);
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>adjustbrightness</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>lintern</span> <span style=color:#f92672>*</span> (<span style=color:#a6e22e>maxdist</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>d</span>)) <span style=color:#f92672>/</span> <span style=color:#a6e22e>maxdist</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>r</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>adjustbrightness</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>g</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>adjustbrightness</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>b</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>adjustbrightness</span>;
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Limitar RGB para asegurarse de estar dentro del rango 0-255 de color
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#a6e22e>r</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>constrain</span>(<span style=color:#a6e22e>r</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>255</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>g</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>constrain</span>(<span style=color:#a6e22e>g</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>255</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>constrain</span>(<span style=color:#a6e22e>b</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>255</span>);
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>cr</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>r</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>cg</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>g</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>cb</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>cm</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>true</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>g</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>r</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>r</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// Hacer un nuevo color y definir el pixel en la ventana
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#75715e>//color c = color(r, g, b);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>pixloc</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>y</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>width</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>x</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>4</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>pixloc</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>r</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>pixloc</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>g</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>pixloc</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pixels</span>[<span style=color:#a6e22e>pixloc</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>255</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>updatePixels</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedL</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>checkL</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lintern</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>255</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;checked&#34;</span>)
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lintern</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedR</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>checkR</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cr</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cr</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedG</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>checkG</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cg</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cg</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedB</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>checkB</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cb</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cb</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkedM</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>checkM</span>.<span style=color:#a6e22e>checked</span>()) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cm</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cm</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a></h2><p>The way we see the color blindness have to changed because is a very common illness, and we must be more careful with the applications we make, overall the colors we used in that apps.</p><h2 id=future-work>Future Work
+<a class=anchor href=#future-work>#</a></h2><p>In the future this work can be sa solid base to make an application that can fix the image showed in the screen for the people who have a color blindness type, using the same mecanism implemented today in the color blind glasses.</p><h2 id=resource>Resource
+<a class=anchor href=#resource>#</a></h2><ol><li><p><a href="https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/color-map-concepts.htm#:~:text=A%20color%20map%20is%20a,and%20blue%20%28RGB%29%20values">https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/color-map-concepts.htm#:~:text=A%20color%20map%20is%20a,and%20blue%20(RGB)%20values</a>.</p></li><li><p><a href=https://en.wikipedia.org/wiki/Color_blindness>https://en.wikipedia.org/wiki/Color_blindness</a></p></li><li><p><a href=https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness/types-color-blindness>https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/color-blindness/types-color-blindness</a></p></li><li><p><a href=https://en.wikipedia.org/wiki/Ishihara_test>https://en.wikipedia.org/wiki/Ishihara_test</a></p></li><li><p><a href=https://www.es.colorlitelens.com/test-de-daltonismo.html#TEST>https://www.es.colorlitelens.com/test-de-daltonismo.html#TEST</a></p></li></ol></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/5c644938585a1a7eeb229096a5131d8bf1664cd8 title='Last modified by DR200131 | April 8, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
 <span>April 8, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#color-mapping-applications>Color mapping applications</a><ul><li><a href=#introduction>Introduction</a><ul><li><a href=#color-mapping>Color Mapping</a></li><li><a href=#color-blindness>Color Blindness</a></li></ul></li><li><a href=#background-and-previous-work>Background and previous work</a></li><li><a href=#solution>Solution</a></li><li><a href=#code>Code</a></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future Work</a></li><li><a href=#resource>Resource</a></li></ul></li></ul></nav></div></aside></main></body></html>
