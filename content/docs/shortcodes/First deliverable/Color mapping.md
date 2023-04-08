@@ -64,7 +64,7 @@ The next link will send you to a page where are a lot of different tests for the
 
 ## Solution
 
-We made a application that show how a color-blind-person see the world. The checkbox "Flashlight" make your mouse a flashlight, if you check any other checkbox, the color of the flashlight change to see the new filter applied to the image. If you don't check the "Flashlight" checkbox you can see the filters all over the image.
+We made an application that show how a color-blind-person see the world. The checkbox "Flashlight" make your mouse a flashlight, if you check any other checkbox, the color of the flashlight change to see the new filter applied to the image. If you don't check the "Flashlight" checkbox you can see the filters all over the image.
 
 {{< p5-global-iframe id='color_mapping' width="750" height="476" >}}
 
