@@ -7,6 +7,11 @@ type: docs
 ## Alice Tiên Phung-Ngoc
 
 Correo: aphung@unal.edu.co
+[LinkedIn](https://www.linkedin.com/in/alice-phung-849010197/)
+
+{{< hint info >}}
+I am an 8th semester Computer Engineering student at the INSA Rennes in France, currently doing an exchange at the National University of Colombia. Both interested in Virtual Reality and sustainable development in computer science, I would like to link these two subjects in my professional life. Since Visual Computing can, for exemple, lead to a better understanding of one of these themes by bringing me more knowledge on the visualization of images in computer science, I would hope of it to make me practice on that theme.
+{{< /hint >}}
 
 ## Brian Chaparro Cetina
 Email: bchaparro@unal.edu.co
