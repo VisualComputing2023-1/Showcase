@@ -2,14 +2,14 @@
 
 Procedural texturing is a technique used in computer graphics to generate textures algorithmically, rather than relying on pre-made image textures. It involves using mathematical functions, noise algorithms, and procedural rules to create textures with intricate patterns, details, and variations. By defining rules and parameters, procedural texturing allows for the generation of endless variations of textures with high resolution and seamless tiling. This approach offers flexibility, scalability, and efficiency, as the textures can be generated in real-time and adapt to different resolutions and shapes. Procedural texturing is widely used in various applications, including video games, virtual reality, visual effects, and computer-generated imagery, to create realistic, immersive, and visually compelling virtual environments.
 
-The complete exposition will begin by an in-depth explanation about the first procedural texturing exercise that was elaborated by the team. It will allow us understand better two more exercises which are more complicated. So, the first procedural texturing exercise looks like:
+The complete exposition will begin by an in-depth explanation about the first procedural texturing exercise that was elaborated by the team. It will allow us understand better two more exercises which are more complicated which will be presented at the end of the present article. So, the first procedural texturing exercise looks like:
 
 
 **First Exercise:**
 
 <iframe height="470" width="100%" src="https://editor.p5js.org/bchaparro/full/fv64R1A6n"></iframe>
 
-In order to develop this animation it is needed three files:
+In order to develop this animation is needed three files:
 
 ## **File #1: .frag file**
 
@@ -17,7 +17,7 @@ A .frag file is a shader file used in computer graphics. It contains code for th
 
 This code is a computer program that creates a visual pattern called a shader. A shader is like a special effect that is applied to a digital image or animation:
 
-```javascript
+```cpp
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -27,9 +27,7 @@ uniform float time;
 
 float circle(in vec2 _st, in float _radius){
     vec2 l = _st-vec2(0.5);
-    return 1.-smoothstep(_radius-(_radius*0.01),
-                         _radius+(_radius*0.01),
-                         dot(l,l)*4.0);
+    return 1.-smoothstep(_radius-(_radius*0.01),_radius+(_radius*0.01),dot(l,l)*4.0);
 }
 
 void main() {
@@ -46,79 +44,53 @@ void main() {
 ```
 
 Let's break down the code step by step:
-```javascript
+```cpp
 #ifdef GL_ES
 precision mediump float;
 #endif
 ```
 
-These lines are what we call preprocessor directives. They are used to configure the code for a specific environment. In this case, it checks if we are using OpenGL ES (a graphics library) and sets the precision of floating-point numbers to medium.
+The #ifdef and #endif lines are preprocessor directives that are typically used to conditionally include or exclude code depending on certain conditions. In this case, it's checking if GL_ES is defined and setting the precision for floating-point calculations.
 
-```javascript
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+```cpp
+uniform vec2 resolution;
+uniform float time;
 ```
 
-These lines declare some variables that the shader can use to interact with the outside world. u_resolution represents the resolution of the output image, u_mouse represents the position of the mouse (if available), and u_time represents the current time.
+These lines declare two variables, resolution and time, as uniform. In computer graphics, uniform variables are used to pass values from the application to the shader. resolution represents the resolution of the screen or output window, and time represents the current time in seconds.
 
-```javascript
-vec2 tile(vec2 st, float zoom){
-    st *= zoom;
-    return fract(st);
+```cpp
+float circle(in vec2 _st, in float _radius){
+    vec2 l = _st-vec2(0.5);
+    return 1.-smoothstep(_radius-(_radius*0.01),_radius+(_radius*0.01),dot(l,l)*4.0);
 }
 ```
 
-This function takes a position (st) and a zoom level and creates a tiled pattern by multiplying the position by the zoom level and then taking the fractional part of it.
+This is a function definition called circle. It takes in two parameters: _st, which is a 2D vector representing a point, and _radius, which is a floating-point value representing the radius of a circle. The function calculates the distance between the point and the center of the circle and returns a value between 0 and 1, where 1 represents points inside the circle and 0 represents points outside the circle. It uses the smoothstep function to create a smooth transition between the inside and outside of the circle.
 
-```javascript
-float circle(vec2 st, float radius){
-    vec2 pos = vec2(0.5)-st;
-    radius *= 0.75;
-    return 1.-smoothstep(radius-(radius*0.05),radius+(radius*0.05),dot(pos,pos)*3.14);
-}
-```
-
-This function creates a circle shape. It takes a position (st) and a radius and calculates the distance from that position to the center. It then uses a smoothstep function to determine the opacity of the circle based on the distance.
-
-```javascript
-float circlePattern(vec2 st, float radius) {
-    return  circle(st+vec2(0.,-.5), radius)+
-            circle(st+vec2(0.,.5), radius)+
-            circle(st+vec2(-.5,0.), radius)+
-            circle(st+vec2(.5,0.), radius);
-}
-```
-
-This function creates a pattern made up of multiple circles. It calls the circle function four times, each time with a slightly different position offset by 0.5 units in different directions. It then adds up the opacity values of the circles to create the final pattern.
-
-```javascript
-void main(){
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
+```cpp
+void main() {
+	vec2 st = gl_FragCoord.xy/resolution;
     vec3 color = vec3(0.0);
 
-    vec2 grid1 = tile(st,7.);
-    grid1 = tile(st + vec2(cos(u_time),sin(u_time))*0.01,7.);
-    color += mix(vec3(0.075,0.114,0.329),vec3(0.973,0.843,0.675),circlePattern(grid1,0.23)-circlePattern(grid1,0.01));
+    st *= 3.0;
+    st = fract(st); 
 
-    vec2 grid2 = tile(st,3.);
-    grid2 = tile(st + vec2(cos(u_time),sin(u_time))*0.02 ,3.);
-    color = mix(color, vec3(0.761,0.247,0.102), circlePattern(grid2,0.2)) - circlePattern(grid2,0.05),
+    color = vec3(st,0.0);
 
-    gl_FragColor = vec4(color,1.0);
+	gl_FragColor = vec4(color,1.0);
 }
 ```
 
-This is the main part of the code, where the shader is constructed. The main function is the entry point of the shader.
+This is the main function of the shader. It's called for each pixel on the screen.
 
-- It starts by calculating the normalized screen coordinates (st) based on the current pixel's position (gl_FragCoord) and the resolution (u_resolution).
-- It then adjusts the x-coordinate of st to account for the aspect ratio of the output image.
-- A color variable is initialized to black (vec3(0.0)).
-- The tile function is called twice to generate two different grid patterns (grid1 and grid2) using different zoom levels (7 and 3, respectively).
-- The circlePattern function is used to create two different circle patterns using the generated grids and different radii.
-- The resulting patterns are mixed with specific colors using the mix function and added to the color variable.
-- Finally, the color value is assigned to gl_FragColor, which represents the color of the current pixel.
+- First, it calculates the normalized coordinates of the current pixel by dividing gl_FragCoord.xy (the pixel's position) by resolution (the screen resolution).
+- Then, it initializes a variable color as a 3D vector with all components set to 0.0.
+- Next, it scales up the st coordinates by a factor of 3.0 and wraps them around the range 0-1 using the fract function. This creates a repeating pattern of 9 spaces within the 0-1 range.
+- It assigns the st coordinates to the color variable, which gives each pixel a different color based on its position in the 0-1 space.
+- Finally, it sets the output color of the pixel (gl_FragColor) to the color value, with an alpha value of 1.0 (fully opaque).
+
+To sum up, this code defines a shader that creates a colorful pattern by dividing the screen into nine spaces and assigning different colors to each space based on its position. The pattern changes over time as the time variable is updated.
 
 ## **File#2: .vert file**
 
@@ -128,7 +100,7 @@ This vertex shader takes the input vertex positions, transforms them by scaling 
 
 The complete code looks:
 
-```javascript
+```cpp
 attribute vec3 aPosition;
 
 void main() {
@@ -142,32 +114,32 @@ void main() {
 
 The detailed explanation begins with:
 
-```javascript
+```cpp
 attribute vec3 aPosition;
 ```
 
 This line declares an attribute variable named aPosition, which represents the vertex positions of the object. It is of type vec3, indicating that it consists of three components (x, y, and z).
 
-```javascript
+```cpp
 void main() {
 ```
 
 This is the entry point of the vertex shader, where the main function starts.
 
-```javascript
+```cpp
 vec4 positionVec4 = vec4(aPosition, 1.0);
 ```
 
 This line creates a vec4 variable called positionVec4 and assigns the aPosition values to its x, y, and z components. The w component is set to 1.0, which is often used for position calculations in homogeneous coordinates.
 
-```javascript
+```cpp
 positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
 ```
 
 Here, the x and y components of positionVec4 are transformed. They are multiplied by 2.0 to scale the values, and then 1.0 is subtracted to shift them to the range of -1.0 to 1.0. This is a common normalization step to map vertex positions to screen coordinates.
 
 
-```javascript
+```cpp
 gl_Position = positionVec4;
 ```
 
@@ -225,7 +197,7 @@ function draw() {
 }
 ```
 
-First, we have some variable declarations. Think of variables as containers that hold values. In this code, we have variables called theShader, shaderTexture, theta, x, y, outsideRadius, and insideRadius. These variables will be used to store different kinds of information that the code needs.
+First, we have some variable declarations. In this code, we have variables called theShader, shaderTexture, theta, x, y, outsideRadius, and insideRadius. These variables will be used to store different kinds of information that the code needs.
 
 Next, we have a function called preload(). This function is used to load external resources before the program starts running. In this case, it's loading a shader file, which is a special type of program used for rendering graphics.
 
@@ -269,4 +241,4 @@ WebGL shaders are powerful tools for creating stunning visual effects and render
 
 ## **Future work:**
 
-In the realm of WebGL shaders, there is exciting potential for future work and advancements. One area of focus could be on enhancing shader performance through optimization techniques, allowing for even more complex and realistic visual effects in real-time applications. Additionally, exploring new shader languages or extending existing ones could enable developers to express more advanced algorithms and techniques. Another avenue of exploration involves leveraging machine learning and artificial intelligence to generate and manipulate shaders automatically, opening up possibilities for procedural content generation and adaptive rendering. Moreover, integrating ray tracing capabilities into WebGL shaders could bring more accurate lighting and reflections to web-based graphics. The future of WebGL shaders holds immense potential for pushing the boundaries of web-based visual experiences.
+In the realm of WebGL shaders, there is exciting potential for future work and advancements. One area of focus could be on enhancing shader performance through optimization techniques, allowing for even more complex and realistic visual effects in real-time applications. Additionally, exploring new shader languages or extending existing ones could enable developers to express more advanced algorithms and techniques. Another avenue of exploration involves leveraging machine learning and artificial intelligence to generate and manipulate shaders automatically, opening up possibilities for procedural content generation and adaptive rendering. The future of WebGL shaders holds immense potential for pushing the boundaries of web-based visual experiences.
