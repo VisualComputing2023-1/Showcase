@@ -262,3 +262,11 @@ That's it! The code continuously repeats the draw() function, creating an animat
 ### **Third Exercise:**
 
 <iframe height="470" width="100%" src="https://editor.p5js.org/bchaparro/full/a9utVqv-P"></iframe>
+
+## **Conclusion:**
+
+WebGL shaders are powerful tools for creating stunning visual effects and rendering realistic graphics in web applications. By leveraging the GPU's parallel processing capabilities, shaders allow developers to manipulate vertices and pixels at a granular level, resulting in impressive 3D graphics and visualizations. With vertex shaders, developers can transform and deform geometric shapes, while fragment shaders control the color and appearance of individual pixels. These shaders, combined with the WebGL rendering pipeline, enable real-time rendering and interactive experiences directly in the browser, opening up possibilities for immersive games, simulations, and data visualizations on the web. WebGL shaders empower developers to push the boundaries of web graphics and create visually captivating experiences for users.
+
+## **Future work:**
+
+In the realm of WebGL shaders, there is exciting potential for future work and advancements. One area of focus could be on enhancing shader performance through optimization techniques, allowing for even more complex and realistic visual effects in real-time applications. Additionally, exploring new shader languages or extending existing ones could enable developers to express more advanced algorithms and techniques. Another avenue of exploration involves leveraging machine learning and artificial intelligence to generate and manipulate shaders automatically, opening up possibilities for procedural content generation and adaptive rendering. Moreover, integrating ray tracing capabilities into WebGL shaders could bring more accurate lighting and reflections to web-based graphics. The future of WebGL shaders holds immense potential for pushing the boundaries of web-based visual experiences.
