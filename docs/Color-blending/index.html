@@ -1,9 +1,578 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content=" Color mapping applications # Exercise
-Implement blending modes in p5. Take this reference as starting point. "><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content=" Color mapping applications # Exercise
-Implement blending modes in p5. Take this reference as starting point. "><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/Color-blending/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-06-19T12:17:39-05:00"><title>Color Blending | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Color mapping applications # Exercise
+Implement blending modes in p5. Take this reference as starting point. Introduction # A way to define objects in a visual computing language is using shaders. Those are programs that run on the computer GPU, and generate the screen visual output. They can be used to transform the appearance of a texture, color, &mldr; applied to an object. In that sense, when wanting to color an object, we should be able to do &ldquo;operations&rdquo; on it."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Color mapping applications # Exercise
+Implement blending modes in p5. Take this reference as starting point. Introduction # A way to define objects in a visual computing language is using shaders. Those are programs that run on the computer GPU, and generate the screen visual output. They can be used to transform the appearance of a texture, color, &mldr; applied to an object. In that sense, when wanting to color an object, we should be able to do &ldquo;operations&rdquo; on it."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/Color-blending/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-06-19T20:19:16-05:00"><title>Color Blending | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
 <script defer src=/Showcase/en.search.min.7cec9b0a1075c58a0c46780d1b5a27630bd03282c9eb859d249bcc11ec8e7b22.js integrity="sha256-fOybChB1xYoMRngNG1onYwvQMoLJ64WdJJvMEeyOeyI=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
 <input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/Showcase/><span>Visual Computing 2023-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/Showcase/docs/Color-blending/ class=active>Color Blending</a></li><li><a href=/Showcase/docs/Color-mapping/>Color Mapping</a></li><li><a href=/Showcase/docs/Color-models/>Color Models</a></li><li><a href=/Showcase/docs/Depth-Perception/>Depth Perception</a></li><li><a href=/Showcase/docs/solar_system/>Solar System</a></li><li><a href=/Showcase/docs/Terrain-generation/>Terrain Generation</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/Showcase/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Color Blending</strong>
-<label for=toc-control><img src=/Showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#color-mapping-applications>Color mapping applications</a></li></ul></nav></aside></header><article class=markdown><h1 id=color-mapping-applications>Color mapping applications
-<a class=anchor href=#color-mapping-applications>#</a></h1><blockquote class="book-hint info"><strong>Exercise</strong><br>Implement blending modes in p5. Take this reference as starting point.</blockquote><iframe height=470 width=420 src=https://editor.p5js.org/Fafnir/full/NFPfe-T-k></iframe></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/78e43ebf9a99e963946e21d041380c749f9612f3 title='Last modified by Alice Phung | June 19, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
-<span>June 19, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#color-mapping-applications>Color mapping applications</a></li></ul></nav></div></aside></main></body></html>
+<label for=toc-control><img src=/Showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#color-mapping-applications>Color mapping applications</a><ul><li><a href=#introduction>Introduction</a></li><li><a href=#theory-of-the-shaders>Theory of the shaders</a><ul><li><a href=#vertex-shader>Vertex shader</a></li><li><a href=#fragment-shader>Fragment shader</a></li></ul></li><li><a href=#implementation-of-the-solution>Implementation of the solution</a><ul><li><a href=#application>Application</a></li><li><a href=#code>Code</a></li></ul></li><li><a href=#explications>Explications</a><ul><li><a href=#general-functionning>General functionning</a></li><li><a href=#vertex-shader-used>Vertex shader used</a></li><li><a href=#blending-models-implementation>Blending models implementation</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future Work</a></li><li><a href=#references>References</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=color-mapping-applications>Color mapping applications
+<a class=anchor href=#color-mapping-applications>#</a></h1><blockquote class="book-hint info"><strong>Exercise</strong><br>Implement blending modes in p5. Take this reference as starting point.</blockquote><h2 id=introduction>Introduction
+<a class=anchor href=#introduction>#</a></h2><p>A way to define objects in a visual computing language is using shaders. Those are programs that run on the computer GPU, and generate the screen visual output. They can be used to transform the appearance of a texture, color, &mldr; applied to an object. In that sense, when wanting to color an object, we should be able to do &ldquo;operations&rdquo; on it.</p><p>For example, it could be interesting for various applications, as imagining the painting color on a wall, to be able to mix various colors and obtain the resulting one.</p><h2 id=theory-of-the-shaders>Theory of the shaders
+<a class=anchor href=#theory-of-the-shaders>#</a></h2><p>The shaders are external programs. In order to implement a proper shadering process, we need two types of shaders : vertex shaders and fragment shaders.</p><p>The following sequence diagram, extracted from the course&rsquo;s site, shows how data flows among the main shader programming stages.</p><img src=./../shaderFlow.PNG style=display:block;float:none;align:center><h3 id=vertex-shader>Vertex shader
+<a class=anchor href=#vertex-shader>#</a></h3><p>The vertex shader is the stage in the rendering pipeline that handles the processing of individual vertices. It manipulate the coordinates in a 3D space, and is called every time there is a vertex.</p><p>Its objective is to set up the gl_Position variable (a built-in GLSL variable, that is used to store the current vertex position).</p><h3 id=fragment-shader>Fragment shader
+<a class=anchor href=#fragment-shader>#</a></h3><p>The fragment shader is the stage in the rendering pipeline that processes a Fragment generated by the Rasterization, into a set of colors and a single depth value. It defines the RGBA value for each pixel being processed, and is called once per pixel.</p><p>Its objective is to set up the gl_FragColor variable (a built-in variable, that contains the RGBA color).</p><h2 id=implementation-of-the-solution>Implementation of the solution
+<a class=anchor href=#implementation-of-the-solution>#</a></h2><h3 id=application>Application
+<a class=anchor href=#application>#</a></h3><iframe height=470 width=420 src=https://editor.p5js.org/Fafnir/full/NFPfe-T-k></iframe><h3 id=code>Code
+<a class=anchor href=#code>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderBrightness</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderBrightness</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderLightest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderLightest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderDarkest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderDarkest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderNoProperty</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderAdd</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderSubtract</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonNoFeature</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonBrightness</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonDarkest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonLightest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonAdd</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonSubtract</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/brightness.frag&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/lightest.frag&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderNoProperty</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/noproperty.frag&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/darkest.frag&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderAdd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/add.frag&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderSubtract</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/subtract.frag&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#ae81ff>400</span>, <span style=color:#ae81ff>400</span>, <span style=color:#a6e22e>WEBGL</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_left</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;orange&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_right</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;pink&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span><span style=color:#f92672>-</span><span style=color:#ae81ff>180</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonNoFeature</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;No property&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonNoFeature</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setNoProperty</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Brightness&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonBrightness</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setBrightness</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Darkest&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonDarkest</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setDarkest</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Lightest&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonLightest</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setLightest</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonAdd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Add&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonAdd</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setAdd</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonSubtract</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Subtract&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonSubtract</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setSubtract</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rectMode</span>(<span style=color:#a6e22e>CENTER</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span>(<span style=color:#ae81ff>220</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resetShader</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>());
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>square</span>(<span style=color:#f92672>-</span>(<span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#f92672>-</span>(<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>());
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>square</span>((<span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#f92672>-</span>(<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>square</span>(<span style=color:#ae81ff>0</span>, (<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);  <span style=color:#75715e>//shader applies on the &#34;positive&#34; part of the canvas : think it&#39;s because square isn&#39;t a webgl form
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>defineShader</span>(); 
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>push</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>quad</span>(<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>350</span><span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>350</span><span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,((<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span>)<span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,((<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span>)<span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>pop</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//USEFUL METHODS
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Noproperty&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>,     <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderNoProperty</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Brightness&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;brightness&#39;</span>, <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderBrightness</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Lightest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;lightness&#39;</span>, <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderLightest</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Darkest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;darkness&#39;</span>, <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderDarkest</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Add&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderAdd</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Subtract&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderSubtract</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>clearSlider</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Brightness&#34;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Lightest&#34;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Darkest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//REACTING ON BUTTON CLICKS
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setNoProperty</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Default&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>200</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setBrightness</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Brightness&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Brightness&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setLightest</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Lightest&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Lightest&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setDarkest</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Darkest&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Darkest&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setAdd</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Add&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Add&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setSubtract</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Subtract&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Subtract&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=explications>Explications
+<a class=anchor href=#explications>#</a></h2><h3 id=general-functionning>General functionning
+<a class=anchor href=#general-functionning>#</a></h3><p>In the main javascript file, the functionning of the application is pretty simple.</p><p>We will have an application with various windows, each one corresponding to one blending mode, and being accessible thanks to a button designing that mode.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonNoFeature</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonBrightness</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonDarkest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonLightest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonAdd</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonSubtract</span>;
+</span></span></code></pre></div><p>We also define a global attribute named, blendModel, and initialized to a no property mode. This attribute will allow us to manage the selection of the used shader.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;  
+</span></span></code></pre></div><p>To select the two colors used, we define two color pickers. The user can interact with those objects, in order to choose colors thanks to the mouse or an hexadecimal code.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#ae81ff>400</span>, <span style=color:#ae81ff>400</span>, <span style=color:#a6e22e>WEBGL</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_left</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;orange&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_right</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createColorPicker</span>(<span style=color:#e6db74>&#34;pink&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>position</span>(<span style=color:#a6e22e>width</span><span style=color:#f92672>-</span><span style=color:#ae81ff>180</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In the draw method, we draw the interface of the application. This will be defining two squares to be able to better see the selected colors, and a third one filled with the color resulting of the blending done to those two colors. That third square color is defined thanks to the function defineShader(), which we will study later on.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rectMode</span>(<span style=color:#a6e22e>CENTER</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span>(<span style=color:#ae81ff>220</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resetShader</span>();    <span style=color:#75715e>// reset the shading mode to the default WEBGL one, to be able to draw correctly the squares
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// first square, first color
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>());
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>square</span>(<span style=color:#f92672>-</span>(<span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#f92672>-</span>(<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// second square, second color
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>fill</span>(<span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>());
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>square</span>((<span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#f92672>-</span>(<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// third square outline
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>square</span>(<span style=color:#ae81ff>0</span>, (<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>), <span style=color:#ae81ff>150</span>);  
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// define the shader used in the last square
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>defineShader</span>(); 
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// create the geometric shape
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>push</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>quad</span>(<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>350</span><span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>350</span><span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,((<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span>)<span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span><span style=color:#f92672>/</span><span style=color:#a6e22e>width</span>,((<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>4</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>150</span>)<span style=color:#f92672>/</span><span style=color:#a6e22e>height</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>pop</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The defineShader function is the most important. It checks the value of the blendModel attribute listed above, and depending on its value, applies a certain shader, by setting its uniforms to the corresponding values.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Noproperty&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>,     <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderNoProperty</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Brightness&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;brightness&#39;</span>, <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderBrightness</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Lightest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;lightness&#39;</span>, <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderLightest</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Darkest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;darkness&#39;</span>, <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderDarkest</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Add&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderAdd</span>);
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Subtract&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderSubtract</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>For the cases in which the shaders use a slider to define a value (or brightness, darkness, lightness&mldr;), we also define a clearSlider function, that allows us to remove the former sliders of the application.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>clearSlider</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Brightness&#34;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Lightest&#34;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Darkest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>remove</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=vertex-shader-used>Vertex shader used
+<a class=anchor href=#vertex-shader-used>#</a></h3><p>For this application, we will use the same vertex shader for every mode of coloring. It is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>attribute</span> <span style=color:#a6e22e>vec3</span> <span style=color:#a6e22e>aPosition</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>gl_Position</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec4</span>(<span style=color:#a6e22e>aPosition</span>, <span style=color:#ae81ff>1.0</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It will send the position information to the different fragment shaders that will be used.</p><h3 id=blending-models-implementation>Blending models implementation
+<a class=anchor href=#blending-models-implementation>#</a></h3><div class=book-tabs><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-0 checked>
+<label for=tabs-blendingmodels-0>No proprety</label><div class="book-tabs-content markdown-inner"><h3 id=no-property-mode>No property mode
+<a class=anchor href=#no-property-mode>#</a></h3><p>In the case where we are applying the no property mode, we want to apply a simple blending of the colors. The fragment shader that we use is then the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>finalCol</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>finalCol</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>gl_FragColor</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>We load it in the main program :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderNoProperty</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/noproperty.frag&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The button that allows the user to define this blending mode is defined as following. It is to note that on the execution of the onClick method for this button, we erase every existing slider.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonNoFeature</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>buttonNoFeature</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;No property&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>buttonNoFeature</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setNoProperty</span>);
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setNoProperty</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Default&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>200</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then, in the function defineShader(), called at every frame, since the current blending mode is defined as &ldquo;Noproperty&rdquo;, we define the uniforms of the no properties shader, and define it as the current shader mode.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Noproperty&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>,     <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderNoProperty</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderNoProperty</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-1>
+<label for=tabs-blendingmodels-1>Brightness</label><div class="book-tabs-content markdown-inner"><h3 id=brightness-mode>Brightness mode
+<a class=anchor href=#brightness-mode>#</a></h3><p>The principle of the brightness mode is to mmix the two materials together by multiplying them, and then to apply to the resultant a brightness value. It allows us to change the appearance of the resultant material.</p><p>The fragment shader is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>brightness</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>material</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// brightness affects only rgb but no the alpha channel
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec4</span>(<span style=color:#a6e22e>brightness</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>rgb</span>, <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>a</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>In the main program, we load the shader :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderBrightness</span>;
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/brightness.frag&#39;</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>A choice was made for the user to be able to define the brightness value. We do that thanks to a slider. That slider will only be visible when activating the brightness mode, so we only initialize it in the &ldquo;onClick&rdquo; function of the button corresponding to this mode. At the beginning of that same function, we also erase every other slider existing.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderBrightness</span>;
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>buttonBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Brightness&#39;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>buttonBrightness</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setBrightness</span>);
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setBrightness</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Brightness&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Brightness&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then, in the function defineShader(), called at every frame, since the current blending mode is defined as &ldquo;Brightness&rdquo;, the following code runs :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Brightness&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderBrightness</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;brightness&#39;</span>, <span style=color:#a6e22e>sliderBrightness</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderBrightness</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ... 
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It allows us to define the current shader to the brightness one, and initializes its uniforms.</p></div><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-2>
+<label for=tabs-blendingmodels-2>Darkest</label><div class="book-tabs-content markdown-inner"><h3 id=darkest-mode>Darkest mode
+<a class=anchor href=#darkest-mode>#</a></h3><p>In that mode, we select the darkest color of both. Indeed, the resulting pixels C are obtained thanks to the operation C = min(A*factor, B), with A being the source pixels and B the pixels already present.</p><p>The fragment shader is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>darkness</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>material</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>darkness</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>material</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>material</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#75715e>// brightness affects only rgb but no the alpha channel
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec4</span>(<span style=color:#a6e22e>darkness</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>rgb</span>, <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>a</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Since this blending mode also uses a slider to define the dark degree of the color, its functioning is the same as for the brightness mode. We then have this code in the main program :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderDarkest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderDarkest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonDarkest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/darkest.frag&#39;</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Darkest&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonDarkest</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setDarkest</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Darkest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderDarkest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;darkness&#39;</span>, <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderDarkest</span>);
+</span></span><span style=display:flex><span>  }...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setDarkest</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Darkest&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Darkest&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderDarkest</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-3>
+<label for=tabs-blendingmodels-3>Lightest</label><div class="book-tabs-content markdown-inner"><h3 id=lightest-mode>Lightest mode
+<a class=anchor href=#lightest-mode>#</a></h3><p>The lightest mode allows us to get the lightest color of both. It does the operation C = max(A*factor, B), with A being the source pixels and B the pixels already present, to obtain C, the resulting pixels. In this mode, we are able to select the percentage of lightness in the resulting color, thanks to a slider.</p><p>The fragment shader is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>lightness</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>material</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial1</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span><span style=color:#f92672>+</span><span style=color:#a6e22e>uMaterial2</span>.<span style=color:#a6e22e>rgb</span>[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>lightness</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>material</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span>  }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>material</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec4</span>(<span style=color:#a6e22e>lightness</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>rgb</span>, <span style=color:#a6e22e>material</span>.<span style=color:#a6e22e>a</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Having a functioning being exactly the same as the darkest mode one, we will not explain it, but here is the code to make it work.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderLightest</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sliderLightest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonLightest</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/lightest.frag&#39;</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Lightest&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonLightest</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setLightest</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Lightest&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderLightest</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;lightness&#39;</span>, <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderLightest</span>); 
+</span></span><span style=display:flex><span>  }...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setLightest</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Lightest&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Lightest&#34;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.01</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>200</span><span style=color:#f92672>-</span><span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sliderLightest</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#39;width&#39;</span>, <span style=color:#e6db74>&#39;100px&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-4>
+<label for=tabs-blendingmodels-4>Add</label><div class="book-tabs-content markdown-inner"><h3 id=add-mode>Add mode
+<a class=anchor href=#add-mode>#</a></h3><p>The add mode allows us to obtain the color resulting of the addition of both colors (C = A + B).</p><p>The shader used is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It is defined as following in the main javascript file :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderAdd</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderSubtract</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderAdd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/add.frag&#39;</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The user can select this mode thanks to a click on a button.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonAdd</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonAdd</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Add&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonAdd</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setAdd</span>);
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setAdd</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Add&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Add&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then, in the function defineShader(), called at every frame, since the current blending mode is defined as &ldquo;Add&rdquo;, the following code runs :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>    ...
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Add&#39;</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>shaderAdd</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderAdd</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ... 
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It allows us to define the current shader to the add one, and initializes its uniforms.</p></div><input type=radio class=toggle name=tabs-blendingmodels id=tabs-blendingmodels-5>
+<label for=tabs-blendingmodels-5>Subtract</label><div class="book-tabs-content markdown-inner"><h3 id=subtract-mode>Subtract mode
+<a class=anchor href=#subtract-mode>#</a></h3><p>The add mode allows us to obtain the color resulting of the remainder of colors A and B.</p><p>The shader used is the following one :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial1</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>uMaterial2</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>uMaterial1</span> <span style=color:#f92672>-</span> (<span style=color:#a6e22e>uMaterial2</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>floor</span>(<span style=color:#a6e22e>uMaterial1</span><span style=color:#f92672>/</span><span style=color:#a6e22e>uMaterial2</span>));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It&rsquo;s functioning is exactly the same as for the add mode described before.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>shaderSubtract</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>buttonSubtract</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Noproperty&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shaderSubtract</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadShader</span>(<span style=color:#e6db74>&#39;shaders/vertex_shader.vert&#39;</span>,<span style=color:#e6db74>&#39;shaders/subtract.frag&#39;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonSubtract</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createButton</span>(<span style=color:#e6db74>&#39;Subtract&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>buttonSubtract</span>.<span style=color:#a6e22e>mousePressed</span>(<span style=color:#a6e22e>setSubtract</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>defineShader</span>(){
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;Subtract&#39;</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial1&#39;</span>, <span style=color:#a6e22e>color_picker_left</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shaderSubtract</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#39;uMaterial2&#39;</span>, <span style=color:#a6e22e>color_picker_right</span>.<span style=color:#a6e22e>color</span>().<span style=color:#a6e22e>_array</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>shaderSubtract</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setSubtract</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>clearSlider</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#39;Blend Mode : Subtract&#39;</span>, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>blendModel</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Subtract&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></div><h2 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a></h2><p>This exercise was interesting to implement, because it allowed us to understand in a better way the functioning of GLSL shaders. The &ldquo;basic&rdquo; knowledge learned thanks to this exercise allowed us to face the more challenging ones with solid bases.</p><h2 id=future-work>Future Work
+<a class=anchor href=#future-work>#</a></h2><p>For this work, we were able to imagine various improvements.</p><p>A first improvement would be to obtain the hexadecimal code of the resulting color. However, this is currently not possible, because of the impossibility to pass a textual information from a shader file to the javascript file (it is only possible the other way around, using uniforms).</p><p>A second improvement would be the possibility to do operations of blending on more colors. It could bring more possibilities of combinations to the users of the application. Another way of increasing the number of possibilities for users would be to let them choose the quantity of each colour used in the mix (only in some cases, such as the brightness operation for example). That way, they could plan the quantities needed for eventual real life applications.</p><p>A last improvement would be to make the application more user-friendly, by showing it more entertaining. For example, it could be possible to place the tool in a house that we would want to paint.</p><h2 id=references>References
+<a class=anchor href=#references>#</a></h2><p><strong>blendMode documentation</strong>, p5 Documentation, <a href=https://p5js.org/reference/#/p5/blendMode>https://p5js.org/reference/#/p5/blendMode</a></p><p><strong>Class support on shaders</strong>, github, <a href=https://visualcomputing.github.io/docs/shaders/>https://visualcomputing.github.io/docs/shaders/</a></p><p><strong>GLSL shaders</strong>, Mozilla documentation, <a href=https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders>https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders</a></p><p><strong>Fragment shader</strong>, Khronos group on OpenGL, <a href=https://www.khronos.org/opengl/wiki/Fragment_Shader>https://www.khronos.org/opengl/wiki/Fragment_Shader</a></p><p><strong>Vertex shader</strong>, Khronos group on OpenGL, <a href=https://www.khronos.org/opengl/wiki/Vertex_Shader>https://www.khronos.org/opengl/wiki/Vertex_Shader</a></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/ebd25affd20aa1cdce7f617d1878f78f66dcf0b7 title='Last modified by Alice Phung | June 20, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<span>June 20, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#color-mapping-applications>Color mapping applications</a><ul><li><a href=#introduction>Introduction</a></li><li><a href=#theory-of-the-shaders>Theory of the shaders</a><ul><li><a href=#vertex-shader>Vertex shader</a></li><li><a href=#fragment-shader>Fragment shader</a></li></ul></li><li><a href=#implementation-of-the-solution>Implementation of the solution</a><ul><li><a href=#application>Application</a></li><li><a href=#code>Code</a></li></ul></li><li><a href=#explications>Explications</a><ul><li><a href=#general-functionning>General functionning</a></li><li><a href=#vertex-shader-used>Vertex shader used</a></li><li><a href=#blending-models-implementation>Blending models implementation</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future Work</a></li><li><a href=#references>References</a></li></ul></li></ul></nav></div></aside></main></body></html>
