@@ -68,19 +68,67 @@ The Moon effectuates a complete revolution around the Earth in 27.3 days. One pa
 
 ## Implementation
 
+### Application
+
 <iframe height = "700" width = "700" src="https://editor.p5js.org/Fafnir/full/khR8vEz6g"></iframe>
+
+### Code
+
+## Explication of the solution
+
+### Movement of the different objects
+
+### Light gestion
+Since it is not possible to define a textured object as a source of light, the choice was mad to implement the light in the transformation tree. It is defined after adding the Sun : we do a simple translation equal to the Sun radius+10, so that the new referential origin is out of the Sun object. It will rotate along with the Earth object. Then, we define a light having as a direction the X-axis.
+
+The original idea was to define a directional light, because, as the Sun is way bigger than Earth, it acts like a directional light on the planet. However, in the p5 model, it was not possible to define the source like that. 
+
+A single point light couldn't work either, because the Earth's surface lightened by it would be too small.
+
+The solution encountered was then to define two point lights, at four different points of the Sun's surface, so that the light would be more diffuse.
+
+```javascript
+push();
+rotateY(frameCount * earthRotationSpeed);
+translate(sunRadius+10,0,0);
+pointLight(255, 255, 255, 0, 30, 0);
+pointLight(255, 255, 255, 0, -30, 0);
+pointLight(255, 255, 255, 0, 0, -30);
+pointLight(255, 255, 255, 0, 0, 30);
+```
+
+However, this model comes along with a certain problem : since there are multiple light sources, it creates a problem with shadows. It is one of the causes of the impossibility to see Moon eclipses when it is between the sun and the Earth.
+
+## Future Work
+
+### Correction of physics incoherences
+
+For the future of this exercise, it will be important to deal with the physics problems of the model : 
+- periods of time : it wille be necessary to have time scales a bit more realistic,
+- light source : it is important to have a directional light source, so that the model gets enlightened in the proper way,
+- revolution of objects : the revolution of the Earth around the Sun, and of the Moon around the Earth are not realistic. Indeed, in the real world, their trajectories are elliptical, and the object's "altitude" (although it can't really be defined as that in space) vary.
+
+### Addition of functionalities
+
+Some functionalities could not be added to the model, due to time and lots of problems encountered along the way. But, an interesting functionality to add would we the ability to click on an object and display informations about it on the screen.
+
 
 ## References
 
 ### Earth's movement
 
 **Earth movements: rotation, translation, precession and nutation**, German Portillo, https://www.meteorologiaenred.com/en/earth-movements.html
+
 **Earth Rotation: The Day-Night Boundary**, EarthHow, https://earthhow.com/earth-rotation-day-night-boundary/
+
 **Precession**, space.fm, https://www.space.fm/astronomy/planetarysystems/precession.html
+
 **Earth's nutations**, Mathieu Dumberry, https://sites.ualberta.ca/~dumberry/nutation.html
 
 ### Moon's movement
 
 **Moon in motion**, NASA, https://moon.nasa.gov/moon-in-motion/phases-eclipses-supermoons/overview/
+
 **Lunar distance**, Wikipedia, https://en.wikipedia.org/wiki/Lunar_distance_(astronomy)
+
 
