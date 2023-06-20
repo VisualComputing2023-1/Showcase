@@ -1,0 +1,224 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Photomosaic # Exercise
+Implement a mosaic visual application. Introduction # In this exercise we are going to show how a photomosaic works.
+Photomosaic # The photomosaic is an image, portrait or photograph that is divided by geometric figures, usually squares or rectangles of the same size, this in order to replace them with other portraits, photographs or images that match the average colors that enclose the geometric figures of the original image, achieving that when viewing the image from a distant point is achieved as the original, but when viewing from a nearby point or zoom can be perceived that is composed of other images."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Photomosaic # Exercise
+Implement a mosaic visual application. Introduction # In this exercise we are going to show how a photomosaic works.
+Photomosaic # The photomosaic is an image, portrait or photograph that is divided by geometric figures, usually squares or rectangles of the same size, this in order to replace them with other portraits, photographs or images that match the average colors that enclose the geometric figures of the original image, achieving that when viewing the image from a distant point is achieved as the original, but when viewing from a nearby point or zoom can be perceived that is composed of other images."><meta property="og:type" content="article"><meta property="og:url" content="https://visualcomputing2023-1.github.io/Showcase/docs/Second-delivery/Photomosaic/Photomosaic/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2023-06-19T20:25:01-05:00"><title>Photomosaic | Visual Computing 2023-1</title><link rel=manifest href=/Showcase/manifest.json><link rel=icon href=/Showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/Showcase/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/Showcase/flexsearch.min.js></script>
+<script defer src=/Showcase/en.search.min.7cec9b0a1075c58a0c46780d1b5a27630bd03282c9eb859d249bcc11ec8e7b22.js integrity="sha256-fOybChB1xYoMRngNG1onYwvQMoLJ64WdJJvMEeyOeyI=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/Showcase/><span>Visual Computing 2023-1</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/Showcase/docs/Color-blending/>Color Blending</a></li><li><a href=/Showcase/docs/Color-mapping/>Color Mapping</a></li><li><a href=/Showcase/docs/Color-models/>Color Models</a></li><li><a href=/Showcase/docs/Depth-Perception/>Depth Perception</a></li><li><a href=/Showcase/docs/Second-delivery/Photomosaic/Photomosaic/ class=active>Photomosaic</a></li><li><a href=/Showcase/docs/solar_system/>Solar System</a></li><li><a href=/Showcase/docs/Terrain-generation/>Terrain Generation</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/Showcase/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Photomosaic</strong>
+<label for=toc-control><img src=/Showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#photomosaic>Photomosaic</a><ul><li><a href=#introduction>Introduction</a><ul><li></li></ul></li><li><a href=#background-and-previous-work>Background and previous work</a></li><li><a href=#solution>Solution</a></li><li><a href=#code>Code</a><ul><li></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future Work</a></li><li><a href=#resource>Resource</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=photomosaic>Photomosaic
+<a class=anchor href=#photomosaic>#</a></h1><blockquote class="book-hint info"><strong>Exercise</strong><br>Implement a mosaic visual application.</blockquote><h2 id=introduction>Introduction
+<a class=anchor href=#introduction>#</a></h2><p>In this exercise we are going to show how a photomosaic works.</p><h4 id=photomosaic-1>Photomosaic
+<a class=anchor href=#photomosaic-1>#</a></h4><p>The photomosaic is an image, portrait or photograph that is divided by geometric figures, usually squares or rectangles of the same size, this in order to replace them with other portraits, photographs or images that match the average colors that enclose the geometric figures of the original image, achieving that when viewing the image from a distant point is achieved as the original, but when viewing from a nearby point or zoom can be perceived that is composed of other images.</p><h2 id=background-and-previous-work>Background and previous work
+<a class=anchor href=#background-and-previous-work>#</a></h2><p>A picture is being generated using small, colourful stones or glass pieces. That is how famous artworks in palaces and villas were created. Today&rsquo;s view of mosaics is still very much effected by those ancient artworks.</p><p>Over the centuries this art technique was preserved and was responsible for the visual design of important architectural structures. In the time of the Renaissance and Classicism they became more important. In those times the mosaic technique and handwork were in trend. Because of that mosaics can still be seen in the remnants of those times, in ruins and buildings from those eras.</p><p>Mosaics are also related to the controversial painting style Pointillism. Pointillism reached its peak at the end of the 19th Century.</p><h2 id=solution>Solution
+<a class=anchor href=#solution>#</a></h2><p>In this case, we made an application that starts show an image which is made from differents images. The area of neighboring pixels can be enlarged or decreased, as well as switching between image, video or camera. You can also change from images to pixels.</p><iframe id=photomosaic style=width:675px;height:675px srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js></script>
+             <script src=/Showcase/sketches/libraries/p5.shaderbox.js></script> 
+             <script src=/Showcase/sketches/libraries/p5.quadrille.js></script> 
+            
+            
+            
+            <script src=/Showcase/sketches/photomosaic.js></script>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe><h2 id=code>Code
+<a class=anchor href=#code>#</a></h2><h4 id=photomosaicfrag>photomosaic.frag
+<a class=anchor href=#photomosaicfrag>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>precision</span> <span style=color:#a6e22e>mediump</span> <span style=color:#66d9ef>float</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>num_images</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>40</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>sampler2D</span> <span style=color:#a6e22e>source</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>sampler2D</span> <span style=color:#a6e22e>palette</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>cols</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>lumas</span>[<span style=color:#a6e22e>num_images</span>];
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>red_palette</span>[<span style=color:#a6e22e>num_images</span>];
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>green_palette</span>[<span style=color:#a6e22e>num_images</span>];
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>blue_palette</span>[<span style=color:#a6e22e>num_images</span>];
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>bool</span> <span style=color:#a6e22e>debug</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>bool</span> <span style=color:#a6e22e>color_on</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>background</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>foreground</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>uniform</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>resolution</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>varying</span> <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>vVertexColor</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>varying</span> <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>vTexCoord</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>float</span> <span style=color:#a6e22e>luma</span>(<span style=color:#a6e22e>vec3</span> <span style=color:#a6e22e>color</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (<span style=color:#ae81ff>0.299</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>color</span>.<span style=color:#a6e22e>r</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.587</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>color</span>.<span style=color:#a6e22e>g</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.114</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>color</span>.<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>fontCoord</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vTexCoord</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>resolution</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>srcCoord</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>floor</span>(<span style=color:#a6e22e>fontCoord</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fontCoord</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fontCoord</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>srcCoord</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>srcCoord</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>srcCoord</span> <span style=color:#f92672>/</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#a6e22e>resolution</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>mid</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1.0</span><span style=color:#f92672>/</span>(<span style=color:#ae81ff>2.0</span><span style=color:#f92672>*</span><span style=color:#a6e22e>resolution</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>srcCoord</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>srcCoord</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#a6e22e>mid</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>key</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>source</span>, <span style=color:#a6e22e>srcCoord</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>debug</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>key</span>;
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>lumakey</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>luma</span>(<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>rgb</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>selected</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bool</span> <span style=color:#a6e22e>complete</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>float</span> <span style=color:#a6e22e>j</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.02</span>; <span style=color:#a6e22e>j</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>0.5</span>; <span style=color:#a6e22e>j</span> <span style=color:#f92672>+=</span> <span style=color:#ae81ff>0.02</span>){
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>num_images</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>++</span>)
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>((<span style=color:#a6e22e>red_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span><span style=color:#f92672>&gt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>r</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>j</span>) <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>red_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span> <span style=color:#f92672>&lt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>r</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>j</span>)) <span style=color:#f92672>&amp;&amp;</span> (<span style=color:#a6e22e>green_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span><span style=color:#f92672>&gt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>g</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>j</span>) <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>green_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span> <span style=color:#f92672>&lt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>g</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>j</span>)) <span style=color:#f92672>&amp;&amp;</span> (<span style=color:#a6e22e>blue_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span><span style=color:#f92672>&gt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>b</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>j</span>) <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>blue_palette</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span> <span style=color:#f92672>&lt;</span> (<span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>b</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>j</span>))){
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>selected</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>float</span>(<span style=color:#a6e22e>i</span>);
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>complete</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>          <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>complete</span>){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tile</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec2</span>((<span style=color:#a6e22e>floor</span>(<span style=color:#a6e22e>selected</span>) <span style=color:#f92672>+</span> <span style=color:#a6e22e>fontCoord</span>.<span style=color:#a6e22e>x</span>) <span style=color:#f92672>/</span> <span style=color:#a6e22e>cols</span>, <span style=color:#a6e22e>fontCoord</span>.<span style=color:#a6e22e>y</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>paletteTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>palette</span>, <span style=color:#a6e22e>tile</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>paletteTexel</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=photomosaicjs>photomosaic.js
+<a class=anchor href=#photomosaicjs>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>imageCells</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>pg</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>mosaic</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>image_src</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>video_src</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>debug</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>cols</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>resolution</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>sel</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>video_on</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>p</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>luma</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>rgb</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>SAMPLE_RES</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>100</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>preload</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>image_src</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>loadImage</span>(<span style=color:#e6db74>&#34;/Showcase/imgs/Foto1.jpg&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_src</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createVideo</span>([<span style=color:#e6db74>&#34;/Showcase/vid/birds.mp4&#34;</span>]);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_src</span>.<span style=color:#a6e22e>hide</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>readShader</span>(<span style=color:#e6db74>&#34;/Showcase/sketches/shaders/photomosaic.frag&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>p</span> <span style=color:#f92672>=</span> [];
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>36</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>i</span>.<span style=color:#a6e22e>toString</span>().<span style=color:#a6e22e>length</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>loadImage</span>(<span style=color:#e6db74>`/Showcase/imgs/breads/00000</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>i</span><span style=color:#e6db74>}</span><span style=color:#e6db74>.jpg`</span>));
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>push</span>(<span style=color:#a6e22e>loadImage</span>(<span style=color:#e6db74>`/Showcase/imgs/breads/0000</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>i</span><span style=color:#e6db74>}</span><span style=color:#e6db74>.jpg`</span>));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#ae81ff>650</span>, <span style=color:#ae81ff>650</span>, <span style=color:#a6e22e>WEBGL</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>colorMode</span>(<span style=color:#a6e22e>RGB</span>, <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>imageCells</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createQuadrille</span>(<span style=color:#a6e22e>p</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textureMode</span>(<span style=color:#a6e22e>NORMAL</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>noStroke</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>shader</span>(<span style=color:#a6e22e>mosaic</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>cam</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createCapture</span>(<span style=color:#a6e22e>VIDEO</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>cam</span>.<span style=color:#a6e22e>size</span>(<span style=color:#ae81ff>500</span>, <span style=color:#ae81ff>400</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>cam</span>.<span style=color:#a6e22e>hide</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSelect</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>option</span>(<span style=color:#e6db74>&#34;Pixels&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>option</span>(<span style=color:#e6db74>&#34;Images&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>selected</span>(<span style=color:#e6db74>&#34;Images&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>changed</span>(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;debug&#34;</span>, <span style=color:#a6e22e>sel</span>.<span style=color:#a6e22e>value</span>() <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;Pixels&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;color_on&#34;</span>, <span style=color:#66d9ef>false</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSelect</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>option</span>(<span style=color:#e6db74>&#34;Image&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>option</span>(<span style=color:#e6db74>&#34;Video&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>option</span>(<span style=color:#e6db74>&#34;Camera&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>selected</span>(<span style=color:#e6db74>&#34;Image&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>changed</span>(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;source&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>value</span>() <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;Image&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#a6e22e>image_src</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>value</span>() <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;Video&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>?</span> <span style=color:#a6e22e>video_src</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>:</span> <span style=color:#a6e22e>cam</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>value</span>() <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;Video&#34;</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>video_src</span>.<span style=color:#a6e22e>loop</span>();
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>video_src</span>.<span style=color:#a6e22e>pause</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>video_on</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;source&#34;</span>, <span style=color:#a6e22e>image_src</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resolution</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createSlider</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>300</span>, <span style=color:#a6e22e>SAMPLE_RES</span>, <span style=color:#ae81ff>5</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resolution</span>.<span style=color:#a6e22e>position</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>50</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resolution</span>.<span style=color:#a6e22e>style</span>(<span style=color:#e6db74>&#34;width&#34;</span>, <span style=color:#e6db74>&#34;80px&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resolution</span>.<span style=color:#a6e22e>input</span>(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;resolution&#34;</span>, <span style=color:#a6e22e>resolution</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;resolution&#34;</span>, <span style=color:#a6e22e>resolution</span>.<span style=color:#a6e22e>value</span>());
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>pg</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createGraphics</span>(<span style=color:#a6e22e>SAMPLE_RES</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>width</span>, <span style=color:#a6e22e>SAMPLE_RES</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;cols&#34;</span>, <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>width</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sample</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>sample</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>pg</span>.<span style=color:#a6e22e>width</span> <span style=color:#f92672>!==</span> <span style=color:#a6e22e>SAMPLE_RES</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>width</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>pg</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>createGraphics</span>(<span style=color:#a6e22e>SAMPLE_RES</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>width</span>, <span style=color:#a6e22e>SAMPLE_RES</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;cols&#34;</span>, <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>width</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>sort</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ascending</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cellLength</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>SAMPLE_RES</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mode</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;LUMA&#34;</span>,
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>luma</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>saveLuma</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cellLength</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>SAMPLE_RES</span>,
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgb</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>imageCells</span>.<span style=color:#a6e22e>saveRGB</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cellLength</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>SAMPLE_RES</span>,
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>drawQuadrille</span>(<span style=color:#a6e22e>imageCells</span>, {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>graphics</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>pg</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cellLength</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>SAMPLE_RES</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>outlineWeight</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;palette&#34;</span>, <span style=color:#a6e22e>pg</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;lumas&#34;</span>, <span style=color:#a6e22e>luma</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;red_palette&#34;</span>, <span style=color:#a6e22e>rgb</span>.<span style=color:#a6e22e>r</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;green_palette&#34;</span>, <span style=color:#a6e22e>rgb</span>.<span style=color:#a6e22e>g</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mosaic</span>.<span style=color:#a6e22e>setUniform</span>(<span style=color:#e6db74>&#34;blue_palette&#34;</span>, <span style=color:#a6e22e>rgb</span>.<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>cover</span>({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>texture</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>windowResized</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>resizeCanvas</span>(<span style=color:#a6e22e>windowWidth</span>, <span style=color:#a6e22e>windowHeight</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=conclusion>Conclusion
+<a class=anchor href=#conclusion>#</a></h2><p>The photomosaic is an interesting exercise to learn how shaders work and, above all, how LUMA works. It can be a really good way for make another a little bit more difficult applications.</p><h2 id=future-work>Future Work
+<a class=anchor href=#future-work>#</a></h2><p>In the future this work can be a solid base to establish another application (maybe not using the photomosaic) because the way this application was made, can be extrapolated to another uses.</p><h2 id=resource>Resource
+<a class=anchor href=#resource>#</a></h2><ol><li><a href=https://www.photo-mosaic.co.uk/how-it-works/what-is-a-photo-mosaic/>https://www.photo-mosaic.co.uk/how-it-works/what-is-a-photo-mosaic/</a></li><li><a href=https://github.com/mattdesl/lwjgl-basics/wiki/Shaders>https://github.com/mattdesl/lwjgl-basics/wiki/Shaders</a></li></ol></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/VisualComputing2023-1/Showcase/commit/7089e8c6a068daa19e12489bf6ea8463d9bea17c title='Last modified by DR200131 | June 20, 2023' target=_blank rel=noopener><img src=/Showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<span>June 20, 2023</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#photomosaic>Photomosaic</a><ul><li><a href=#introduction>Introduction</a><ul><li></li></ul></li><li><a href=#background-and-previous-work>Background and previous work</a></li><li><a href=#solution>Solution</a></li><li><a href=#code>Code</a><ul><li></li></ul></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#future-work>Future Work</a></li><li><a href=#resource>Resource</a></li></ul></li></ul></nav></div></aside></main></body></html>
